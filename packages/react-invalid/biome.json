@@ -5,16 +5,6 @@
   "linter": {
     "rules": {
       "preset": "none",
-      "complexity": {
-        "useArrayFind": "off"
-      },
-      "correctness": {
-        "noPrivateImports": "off",
-        "noUndeclaredDependencies": "off",
-        "noUnresolvedImports": "off",
-        "useImportExtensions": "off",
-        "useJsonImportAttributes": "off"
-      },
       "nursery": {
         "noBaseToString": "off",
         "noFloatingPromises": "off",
@@ -33,14 +23,24 @@
         "useRegexpExec": "off",
         "useStringStartsEndsWith": "off"
       },
-      "style": {
-        "useConsistentEnumValueType": "off"
-      },
       "suspicious": {
         "noDeprecatedImports": "off",
         "noImportCycles": "off",
         "noUnnecessaryConditions": "off",
         "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
       }
     }
   },
@@ -992,19 +992,6 @@
     },
     {
       "includes": [
-        "**/src/nursery/useReactCompiler/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useReactCompiler": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
         "**/src/nursery/useReactFunctionComponentDefinition/default/**"
       ],
       "linter": {
@@ -1627,6 +1614,19 @@
                 "sortOrder": "lexicographic"
               }
             }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noUndeclaredClasses/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noUndeclaredClasses": "error"
           }
         }
       }

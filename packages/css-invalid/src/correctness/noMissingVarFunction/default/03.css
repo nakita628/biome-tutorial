@@ -1,3 +1,5 @@
+/* biome-ignore-all syntax/correctness/noInvalidPropertySyntax: 検証対象のルールとは無関係な診断のため */
+
 @property --bar {}
 
 a {

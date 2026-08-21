@@ -5,16 +5,6 @@
   "linter": {
     "rules": {
       "preset": "none",
-      "complexity": {
-        "useArrayFind": "off"
-      },
-      "correctness": {
-        "noPrivateImports": "off",
-        "noUndeclaredDependencies": "off",
-        "noUnresolvedImports": "off",
-        "useImportExtensions": "off",
-        "useJsonImportAttributes": "off"
-      },
       "nursery": {
         "noBaseToString": "off",
         "noFloatingPromises": "off",
@@ -33,18 +23,41 @@
         "useRegexpExec": "off",
         "useStringStartsEndsWith": "off"
       },
-      "style": {
-        "useConsistentEnumValueType": "off"
-      },
       "suspicious": {
         "noDeprecatedImports": "off",
         "noImportCycles": "off",
         "noUnnecessaryConditions": "off",
         "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
       }
     }
   },
   "overrides": [
+    {
+      "includes": [
+        "**/src/correctness/noUndeclaredDependencies/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": "error"
+          }
+        }
+      }
+    },
     {
       "includes": [
         "**/src/nursery/noEmptyObjectKeys/default/**"
@@ -166,6 +179,19 @@
         "actions": {
           "source": {
             "useSortedPackageJson": "on"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noQuickfixBiome/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noQuickfixBiome": "error"
           }
         }
       }

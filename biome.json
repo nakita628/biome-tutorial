@@ -5,6 +5,7 @@
   "files": {
     "includes": ["**", "!**/node_modules/**", "!**/tools/.cache/**", "!**/pnpm-lock.yaml"]
   },
+  "html": { "experimentalFullSupportEnabled": true },
   "formatter": { "enabled": false },
   "assist": { "enabled": false },
   "linter": {

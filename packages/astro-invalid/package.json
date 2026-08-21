@@ -2,5 +2,8 @@
   "name": "@biome-tutorial/astro-invalid",
   "version": "0.0.0",
   "private": true,
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "astro": "^5.0.0"
+  }
 }

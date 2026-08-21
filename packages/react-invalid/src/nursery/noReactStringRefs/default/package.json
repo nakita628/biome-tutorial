@@ -1,0 +1,7 @@
+{
+  "name": "no-react-string-refs-fixture",
+  "private": true,
+  "dependencies": {
+    "react": "^16.14.0"
+  }
+}
