@@ -1,0 +1,4 @@
+{
+  "name": "has-build-script",
+  "scripts": { "build": "tsc", "test": "vitest" }
+}

@@ -1,0 +1,163 @@
+# Biome の全ルールを検証する CI
+#
+# 「何を保証したいのか」ごとにジョブを分けている。
+# どのジョブが落ちたかで、壊れた場所がそのまま分かるようにしてある。
+#
+#   valid       … packages/*-valid   は biome check が成功する
+#   invalid     … packages/*-invalid は biome check が失敗する
+#   verify      … ケースごとに「どのルールの診断が出たか」まで一致する
+#   generated   … コミットされている fixture が生成結果と一致する
+#   config      … docs/biome-config-reference.jsonc が実際に通る設定である
+#   fixes       … 自動修正を当てると診断が消える (消えないルールは記録済み)
+#   tools       … このリポジトリ自身のコードが Biome の recommended に従っている
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# 同じブランチへの新しい push が来たら、走っている CI は打ち切る
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: "24"
+
+jobs:
+  valid:
+    # 「Biome に怒られないコード」が本当に怒られないことの確認。
+    # ここが落ちたら、Biome が誤検知するようになったか、fixture が壊れている。
+    name: valid パッケージは成功する
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:valid
+
+  invalid:
+    # 「Biome が検出すべきコード」が本当に検出されることの確認。
+    # biome check の exit code が 0 でないことを期待する (0 だったら失敗扱い)。
+    name: invalid パッケージは失敗する
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:invalid
+
+  verify:
+    # exit code だけでなく診断の中身まで見る。
+    #   valid   … 診断が 0 件
+    #   invalid … 対象ルールの診断が 1 件以上、かつ他ルールの診断は 0 件
+    # あわせて「全ルールに valid / invalid の両方があるか」も確認する。
+    name: ルールごとの診断内容を検証する
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: ケースごとの期待値を検証
+        run: pnpm verify
+      - name: 単独プロジェクトが必要なケースを検証
+        run: pnpm verify:standalone
+      - name: 検証レポートを保存
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verify-report
+          path: tools/report.json
+          if-no-files-found: ignore
+
+  generated:
+    # fixture は biome explain の出力から生成しているので、
+    # 手で編集されていたり、生成スクリプトの変更が反映されていなければここで差分が出る。
+    name: 生成物が最新か確認する
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: fixture を再生成
+        run: pnpm generate
+      - name: 差分が無いことを確認
+        run: git diff --exit-code
+
+  config:
+    # 設定リファレンスに書いたキーや値が Biome の実装から乖離していないかを確認する。
+    name: 設定リファレンスが実際に通る設定か確認する
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify:config
+
+  fixes:
+    # 自動修正が付いているルールについて、修正後に診断が消えるかを確認する。
+    # 修正が部分的なルールは tools/config.mjs の PARTIAL_FIXES に記録してあり、
+    # そこに無いルールが新たに修正しきれなくなったときだけ落ちる。
+    name: 自動修正で診断が消えることを確認する
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm verify:fixes
+      - name: 修正レポートを保存
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fix-report
+          path: tools/fix-report.json
+          if-no-files-found: ignore
+
+  tools:
+    # packages/ 以下は「検査される側」だが、tools/ は「検査する側」のコード。
+    # tools/biome.jsonc で recommended ルールとフォーマッタを有効にしてある。
+    name: tools/ 自体を Biome でチェックする
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm check:tools

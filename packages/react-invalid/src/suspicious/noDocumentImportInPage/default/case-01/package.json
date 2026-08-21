@@ -1,0 +1,4 @@
+{
+  "name": "next-page-fixture",
+  "dependencies": { "next": "^15.0.0" }
+}

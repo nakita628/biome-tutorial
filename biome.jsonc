@@ -1,0 +1,75 @@
+/**
+ * ルート設定 (Biome プロジェクトの起点)
+ *
+ * このファイルは「何をどこまで縛るか」を決める場所です。
+ * 設定できる項目とそれぞれが縛る対象は docs/biome-config-reference.jsonc にまとめてあります。
+ *
+ * このリポジトリは Biome のルールを 1 つずつ検証するためのものなので、
+ * ここではルールを一切有効にせず、パッケージごとの設定 (packages/-*\/biome.jsonc) で
+ * ディレクトリ単位に 1 ルールだけを有効化しています。
+ *
+ * なお、コメントを書くには拡張子を .jsonc にする必要があります (biome.json はコメント不可)。
+ */
+{
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルがプロジェクトのルートであることを示す。
+  // ネストした設定 (packages/*, tools/) は "root": false + "extends": "//" にする。
+  // ルート設定は 1 プロジェクトに 1 つだけ。2 つあると Biome は起動時にエラーになる。
+  "root": true,
+
+  // 何を「対象ファイル」とみなすか を縛る。
+  // includes に書いた glob にマッチしたものだけが、フォーマッタ・リンタ・assist の対象になる。
+  // 先頭に ! を付けると除外。除外はフォルダ名で書く (末尾に /** を付けるとフォルダを走査してしまう)。
+  "files": {
+    "includes": ["**", "!**/node_modules", "!**/tools/.cache", "!**/pnpm-lock.yaml"]
+    // "ignoreUnknown": true  … 未知の拡張子について診断を出さない
+    // "maxSize": 1048576     … これより大きいファイルは無視する (既定 1 MiB)
+  },
+
+  // Git 連携。useIgnoreFile を true にすると .gitignore に書いたものを Biome も無視する。
+  // 「ignore の二重管理をやめる」ための設定。
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+
+  // HTML / Vue / Svelte / Astro のテンプレート部分まで解析するかどうか を縛る。
+  // これを有効にしないと、.vue の <template> 内などはリントされない。
+  "html": {
+    "experimentalFullSupportEnabled": true
+  },
+
+  // 整形を縛る設定。ここでは fixture を公式ドキュメントのまま置きたいので無効化している。
+  // (tools/biome.jsonc では有効にしていて、リポジトリ自身のコードは整形対象)
+  "formatter": { "enabled": false },
+
+  // import の並び替えなどの「コード整理アクション」を縛る設定。
+  // assist はルールではなくアクションなので、linter.rules ではなく assist.actions で指定する。
+  "assist": { "enabled": false },
+
+  "linter": {
+    "enabled": true,
+
+    // domains は「フレームワークや解析機能ごとのルール束」を縛るスイッチ。
+    // 値は all / recommended / none。
+    //
+    // ここが重要な点で、型推論 (types) とプロジェクトスキャナ (project) は
+    // 「ルート設定で domains を有効にしたときだけ動く機能」になっている。
+    // overrides でルールを有効にしただけでは動かないため、ここで機能だけを立ち上げ、
+    // 実際のルールは各パッケージ側で明示的に "off" に戻している
+    // (明示的な "off" は domains の "all" より優先される)。
+    //
+    // react / vue / svelte などのドメインは domains を指定しなくてもルール単体で有効化できるため、
+    // ここでは触らない (触ると全 fixture にそのドメインのルールが混入してしまう)。
+    "domains": {
+      "project": "all",
+      "types": "all"
+    },
+
+    // preset は有効にするルール束を縛る。none / recommended / all。
+    // ここでは 1 ルールずつ検証したいので none にし、パッケージ側の overrides で個別に有効化する。
+    "rules": { "preset": "none" }
+  }
+}

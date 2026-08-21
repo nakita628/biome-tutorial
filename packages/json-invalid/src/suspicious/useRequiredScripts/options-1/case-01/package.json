@@ -1,0 +1,4 @@
+{
+  "name": "missing-build-script",
+  "scripts": { "test": "vitest" }
+}

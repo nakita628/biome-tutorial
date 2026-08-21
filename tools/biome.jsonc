@@ -1,0 +1,50 @@
+/**
+ * tools/ 用のネストした設定
+ *
+ * packages/ 以下は「Biome に検査させるための素材」なのでルールをほぼ無効にしているが、
+ * tools/ はこのリポジトリ自身のコードなので、ふつうのプロジェクトと同じように
+ * recommended ルールとフォーマッタを有効にしている。
+ *
+ * ネストした設定の書き方:
+ *   "root": false     … ルートではないことを示す (必須。省略するとルート扱いでエラーになる)
+ *   "extends": "//"   … プロジェクトルートの設定を継承する
+ */
+{
+  "$schema": "../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+
+  // 生成物 (manifest.json / report.json / fix-report.json) と explain のキャッシュは
+  // 整形・リントの対象から外す。
+  "files": {
+    "includes": ["**", "!.cache", "!manifest.json", "!report.json", "!fix-report.json"]
+  },
+
+  // 整形の「見た目」を縛る設定。ここに書いた値がこのディレクトリ配下に適用される。
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 120
+  },
+
+  // 言語ごとにさらに細かく縛れる。javascript.formatter は JS/TS だけに効く。
+  "javascript": {
+    "formatter": {
+      "semicolons": "asNeeded",
+      "quoteStyle": "single"
+    }
+  },
+
+  // import の並び順を縛る。assist は「診断 + 自動整理」で、ルールとは別枠。
+  "assist": {
+    "enabled": true,
+    "actions": { "source": { "organizeImports": "on" } }
+  },
+
+  // ルート設定では preset: none にしているので、ここで recommended を有効に戻す。
+  "linter": {
+    "enabled": true,
+    "rules": { "preset": "recommended" }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "name": "single-dependency",
+  "dependencies": { "foo": "1.0.0" },
+  "devDependencies": { "bar": "2.0.0" }
+}

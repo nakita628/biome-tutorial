@@ -1,0 +1,297 @@
+/**
+ * biome.jsonc に何を書くと何を縛れるのか — 設定リファレンス
+ *
+ * Biome 2.5.9 の設定スキーマ
+ * (node_modules/@biomejs/biome/configuration_schema.json) をもとに、
+ * 「この設定を書くと何が縛られるのか」をコメントで説明したものです。
+ *
+ * このファイル自体は設定として読み込まれません (ファイル名が biome.jsonc ではないため)。
+ * 実際に使っている設定はリポジトリルートの biome.jsonc と tools/biome.jsonc です。
+ *
+ * 値はすべて「例」です。既定値は各コメントに書いてあります。
+ */
+{
+  // エディタ補完のためのスキーマ参照。設定の中身は縛らない。
+  "$schema": "../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // ============================================================
+  // プロジェクト構造を縛る
+  // ============================================================
+
+  // このファイルがプロジェクトのルートかどうか。既定は true。
+  // モノレポでパッケージごとに設定を分けるときは、子側を false にする。
+  // ルート設定が 2 つ以上見つかると Biome は起動時にエラーになる。
+  "root": true,
+
+  // 他の設定ファイルを継承する。後に書いたものが優先。
+  // "//" はプロジェクトルートの設定を指す (ネスト設定でよく使う)。
+  // npm パッケージとして配布された共通設定を指すこともできる。
+  "extends": [],
+
+  // GritQL プラグイン。自前の lint ルールを .grit ファイルで書いて追加できる。
+  "plugins": [],
+
+  // ============================================================
+  // 「どのファイルを見るか」を縛る
+  // ============================================================
+  "files": {
+    // Biome が扱うファイルを glob で指定する。先頭に ! を付けると除外。
+    // 除外はフォルダ名で書く (`!dist`)。`!dist/**` と書くとフォルダ自体は走査されるので遅くなる。
+    // 1 つめのパターンが除外 (!) だけだと対象が 0 件になるため、まず含める側を書く。
+    "includes": ["**", "!dist", "!**/node_modules"],
+
+    // 未知の拡張子について診断を出さない。既定は false。
+    "ignoreUnknown": true,
+
+    // これより大きいファイルは無視する。既定は 1 MiB。
+    "maxSize": 1048576
+  },
+
+  // ============================================================
+  // バージョン管理との連携を縛る
+  // ============================================================
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+
+    // .gitignore / .ignore / .git/info/exclude を Biome も尊重する。
+    // ignore の二重管理をなくしたいときに使う。
+    "useIgnoreFile": true,
+
+    // 既定ブランチ。`biome check --changed` の比較対象になる。
+    "defaultBranch": "main"
+
+    // "root": "."  … VCS ファイルを探すディレクトリ
+  },
+
+  // ============================================================
+  // 整形 (フォーマッタ) を縛る
+  //   ここに書いた値が全言語の既定になり、言語ごとの設定で上書きできる。
+  // ============================================================
+  "formatter": {
+    "enabled": true,
+
+    // タブかスペースか。既定は "tab"。
+    "indentStyle": "space",
+    // インデント幅。既定は 2。
+    "indentWidth": 2,
+    // 1 行の最大幅。既定は 80。
+    "lineWidth": 100,
+    // 改行コード。既定は "lf"。"auto" は OS 準拠。
+    "lineEnding": "lf",
+
+    // オブジェクトリテラルの波かっこ内にスペースを入れるか。既定は true ( `{ a: 1 }` )。
+    "bracketSpacing": true,
+    // 複数行の HTML/JSX 要素の `>` を最終行の末尾に置くか。既定は false。
+    "bracketSameLine": false,
+    // 配列・オブジェクトを 1 行にまとめるか展開するか。auto / always / never。既定は auto。
+    "expand": "auto",
+    // HTML 系の属性の並べ方。auto / multiline。既定は auto。
+    "attributePosition": "auto",
+    // 構文エラーを含むファイルも整形するか。既定は false。
+    "formatWithErrors": false,
+    // ファイル末尾に改行を入れるか。既定は true。
+    "trailingNewline": true,
+    // .editorconfig を読むか。既定は false。biome 側の設定が優先される。
+    "useEditorconfig": false
+
+    // "includes": ["**"]  … 整形対象だけをさらに絞りたいとき
+  },
+
+  // ============================================================
+  // リント (ルール) を縛る
+  // ============================================================
+  "linter": {
+    "enabled": true,
+
+    // どのルール束を有効にするか。none / recommended / all。
+    // 旧来の "recommended": true は非推奨で、preset に置き換わった。
+    //
+    // ルールの値は次のいずれか:
+    //   "off" | "info" | "warn" | "error"
+    //   { "level": "error", "options": { ... }, "fix": "safe" }
+    //
+    // 明示的に書いたルールの設定は preset や domains より優先される。
+    "rules": {
+      "preset": "recommended",
+
+      "suspicious": {
+        "noDebugger": "error",
+        "noExplicitAny": "off"
+      },
+      "style": {
+        // オプションを取るルールはオブジェクト形式で書く。
+        "noRestrictedTypes": {
+          "level": "error",
+          "options": {
+            "types": {
+              "OldAPI": "Use NewAPI instead"
+            }
+          }
+        }
+      }
+    },
+
+    // ドメイン = フレームワークや解析機能ごとのルール束。値は all / recommended / none。
+    //
+    //   next, nuxt 系: astro / next / qwik / solid / svelte / vue
+    //   ライブラリ    : react / reactNative / drizzle / tailwind / turborepo
+    //   テスト        : playwright / test
+    //   解析機能      : project (複数ファイルを横断するルール)
+    //                   types   (型推論が必要なルール)
+    //
+    // 注意: project / types は「機能そのもの」のスイッチを兼ねている。
+    // ルート設定でこれを有効にしないと、overrides でルールを有効化しても動かない。
+    // 逆に domains を "none" にすると、明示的に有効化したルールも黙る。
+    //
+    // 未指定のドメインは package.json の依存から自動検出される
+    // (例: react が入っていれば react ドメインのルールが recommended として効く)。
+    "domains": {
+      "react": "recommended",
+      "test": "all",
+      "types": "all"
+    }
+
+    // "includes": ["src/**"]  … リント対象だけをさらに絞りたいとき
+  },
+
+  // ============================================================
+  // assist (コード整理アクション) を縛る
+  //   import の並び替えなど「診断 + 自動整理」はルールではなく assist。
+  //   値は "on" / "off"、またはオプション付きのオブジェクト。
+  // ============================================================
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "useSortedKeys": "off"
+      }
+    }
+  },
+
+  // ============================================================
+  // 言語ごとの設定
+  //   グローバル設定を言語単位で上書きする。
+  // ============================================================
+
+  "javascript": {
+    // パーサの受け入れ範囲を縛る。
+    "parser": {
+      // .js / .mjs / .cjs でも JSX を許すか。既定は true。
+      "jsxEverywhere": true,
+      // 古い提案仕様のパラメータデコレータを許すか (実験的)。既定は false。
+      "unsafeParameterDecoratorsEnabled": false
+    },
+
+    "formatter": {
+      // 文字列のクォート。double / single。既定は double。
+      "quoteStyle": "single",
+      // JSX 属性のクォート。既定は double。
+      "jsxQuoteStyle": "double",
+      // セミコロン。always / asNeeded。既定は always。
+      "semicolons": "asNeeded",
+      // 末尾カンマ。all / es5 / none。既定は all。
+      "trailingCommas": "all",
+      // アロー関数の引数のかっこ。always / asNeeded。既定は always。
+      "arrowParentheses": "always",
+      // プロパティのクォート。asNeeded / preserve。既定は asNeeded。
+      "quoteProperties": "asNeeded",
+      // 二項演算子で改行するとき、演算子の前と後ろどちらで折るか。既定は after。
+      "operatorLinebreak": "after"
+    },
+
+    // 未定義変数として扱わないグローバル名。noUndeclaredVariables などが参照する。
+    "globals": ["__DEV__"],
+
+    // JSX の実行環境。transparent (新 JSX 変換) / reactClassic (React の import が必要)。
+    "jsxRuntime": "transparent"
+  },
+
+  "json": {
+    "parser": {
+      // .json でコメントを許すか。既定は false。
+      "allowComments": false,
+      // .json で末尾カンマを許すか。既定は false。
+      "allowTrailingCommas": false
+    },
+    "formatter": {
+      // JSON の末尾カンマ。none / all。既定は none。
+      "trailingCommas": "none"
+    }
+  },
+
+  "css": {
+    "parser": {
+      // CSS Modules 固有の構文を許す。.module.css 以外で使うときに有効化する。
+      "cssModules": false,
+      // Tailwind CSS 4.0 のディレクティブ・関数を解釈する。
+      "tailwindDirectives": false,
+      // 行コメントの位置が正しくなくても許す。
+      "allowWrongLineComments": false
+    },
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+
+  "graphql": {
+    "formatter": {
+      "quoteStyle": "double"
+    }
+  },
+
+  "html": {
+    // HTML / Vue / Svelte / Astro を完全にサポートするか (実験的)。
+    // これを有効にしないと、.vue の <template> 内などはリント対象にならない。
+    "experimentalFullSupportEnabled": true,
+
+    "parser": {
+      // .html 内の {{ expression }} を解釈する。
+      "interpolation": false,
+      // .html 内で Vue 構文 (v-if, v-bind など) を解釈する。
+      "vue": false
+    },
+
+    "formatter": {
+      // <script> と <style> の中身をインデントするか。既定は false。
+      "indentScriptAndStyle": false,
+      // void 要素を自己終了タグにするか。never / always。既定は never。
+      "selfCloseVoidElements": "never",
+      // 空白の意味を尊重するか。css / strict / ignore。既定は css。
+      "whitespaceSensitivity": "css"
+    }
+  },
+
+  // ============================================================
+  // overrides — 特定のパスだけ設定を変える
+  //   上から順に評価され、マッチしたものがすべて適用される (後勝ち)。
+  //   linter / assist / formatter / files / 各言語設定を、パス単位で上書きできる。
+  // ============================================================
+  "overrides": [
+    {
+      // テストファイルだけルールを緩める
+      "includes": ["**/*.test.ts", "**/*.spec.ts"],
+      "linter": {
+        "rules": {
+          "suspicious": { "noExplicitAny": "off" }
+        }
+      }
+    },
+    {
+      // 生成物は整形もリントもしない
+      "includes": ["**/generated/**"],
+      "formatter": { "enabled": false },
+      "linter": { "enabled": false }
+    },
+    {
+      // このリポジトリで使っている書き方:
+      // 1 ディレクトリにつき 1 ルールだけを有効にする
+      "includes": ["**/src/suspicious/noDebugger/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "suspicious": { "noDebugger": "error" } }
+      }
+    }
+  ]
+}

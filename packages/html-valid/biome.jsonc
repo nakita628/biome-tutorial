@@ -1,0 +1,96 @@
+/**
+ * @biome-tutorial/html-valid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず成功する (診断が 1 件も出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 1 種類 / override: 1 件
+ *     - 検証しているケース  : 1 件 (1 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールから見て問題のないコード」だけを集められます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     correctness    1 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateAttributes — Disallow duplication of attributes.
+    //   縛る対象 : src/correctness/noDuplicateAttributes/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noDuplicateAttributes を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-attributes/
+    {
+      "includes": ["**/src/correctness/noDuplicateAttributes/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noDuplicateAttributes": "error" } } }
+    }
+
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "$schema": "https://turbo.build/schema.json",
+  "globalEnv": ["MY_DECLARED_VAR"],
+  "tasks": { "build": {} }
+}

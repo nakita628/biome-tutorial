@@ -1,0 +1,497 @@
+/**
+ * @biome-tutorial/vue-valid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず成功する (診断が 1 件も出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 31 種類 / override: 36 件
+ *     - 検証しているケース  : 55 件 (55 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールから見て問題のないコード」だけを集められます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     correctness   17 件
+ *     nursery        6 件
+ *     performance    1 件
+ *     style         11 件
+ *     suspicious     1 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 17 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noVueDataObjectDeclaration — Enforce that Vue component `data` options are declared as functions.
+    //   縛る対象 : src/correctness/noVueDataObjectDeclaration/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noVueDataObjectDeclaration を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正 safe ・ ドメイン vue
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-data-object-declaration/
+    {
+      "includes": ["**/src/correctness/noVueDataObjectDeclaration/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noVueDataObjectDeclaration": "error" } } }
+    },
+
+    // noVueDuplicateKeys — Disallow duplicate keys in Vue component data, methods, computed properties, and other options.
+    //   縛る対象 : src/correctness/noVueDuplicateKeys/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noVueDuplicateKeys を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-duplicate-keys/
+    {
+      "includes": ["**/src/correctness/noVueDuplicateKeys/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noVueDuplicateKeys": "error" } } }
+    },
+
+    // noVueReservedKeys — Disallow reserved keys in Vue component data and computed properties.
+    //   縛る対象 : src/correctness/noVueReservedKeys/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noVueReservedKeys を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-reserved-keys/
+    {
+      "includes": ["**/src/correctness/noVueReservedKeys/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noVueReservedKeys": "error" } } }
+    },
+
+    // noVueReservedProps — Disallow reserved names to be used as props.
+    //   縛る対象 : src/correctness/noVueReservedProps/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/correctness/noVueReservedProps を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-reserved-props/
+    {
+      "includes": ["**/src/correctness/noVueReservedProps/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noVueReservedProps": "error" } } }
+    },
+
+    // noVueVIfWithVFor — Disallow using `v-if` and `v-for` directives on the same element.
+    //   縛る対象 : src/correctness/noVueVIfWithVFor/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noVueVIfWithVFor を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-v-if-with-v-for/
+    {
+      "includes": ["**/src/correctness/noVueVIfWithVFor/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noVueVIfWithVFor": "error" } } }
+    },
+
+    // useVueValidTemplateRoot — Enforce valid Vue `<template>` root usage.
+    //   縛る対象 : src/correctness/useVueValidTemplateRoot/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useVueValidTemplateRoot を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-template-root/
+    {
+      "includes": ["**/src/correctness/useVueValidTemplateRoot/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidTemplateRoot": "error" } } }
+    },
+
+    // useVueValidVBind — Forbids `v-bind` directives with missing values or invalid modifiers.
+    //   縛る対象 : src/correctness/useVueValidVBind/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useVueValidVBind を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-bind/
+    {
+      "includes": ["**/src/correctness/useVueValidVBind/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVBind": "error" } } }
+    },
+
+    // useVueValidVCloak — Enforce valid `v-cloak` Vue directives.
+    //   縛る対象 : src/correctness/useVueValidVCloak/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useVueValidVCloak を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-cloak/
+    {
+      "includes": ["**/src/correctness/useVueValidVCloak/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVCloak": "error" } } }
+    },
+
+    // useVueValidVElse — Enforce valid usage of v-else.
+    //   縛る対象 : src/correctness/useVueValidVElse/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useVueValidVElse を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-else/
+    {
+      "includes": ["**/src/correctness/useVueValidVElse/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVElse": "error" } } }
+    },
+
+    // useVueValidVElseIf — Enforce valid `v-else-if` directives.
+    //   縛る対象 : src/correctness/useVueValidVElseIf/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useVueValidVElseIf を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-else-if/
+    {
+      "includes": ["**/src/correctness/useVueValidVElseIf/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVElseIf": "error" } } }
+    },
+
+    // useVueValidVHtml — Enforce valid `v-html` directives.
+    //   縛る対象 : src/correctness/useVueValidVHtml/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useVueValidVHtml を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-html/
+    {
+      "includes": ["**/src/correctness/useVueValidVHtml/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVHtml": "error" } } }
+    },
+
+    // useVueValidVIf — Enforces valid `v-if` usage for Vue templates.
+    //   縛る対象 : src/correctness/useVueValidVIf/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/correctness/useVueValidVIf を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-if/
+    {
+      "includes": ["**/src/correctness/useVueValidVIf/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVIf": "error" } } }
+    },
+
+    // useVueValidVOn — Enforce valid `v-on` directives with proper arguments, modifiers, and handlers.
+    //   縛る対象 : src/correctness/useVueValidVOn/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useVueValidVOn を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-on/
+    {
+      "includes": ["**/src/correctness/useVueValidVOn/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVOn": "error" } } }
+    },
+
+    // useVueValidVOnce — Enforce valid `v-once` Vue directives.
+    //   縛る対象 : src/correctness/useVueValidVOnce/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useVueValidVOnce を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-once/
+    {
+      "includes": ["**/src/correctness/useVueValidVOnce/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVOnce": "error" } } }
+    },
+
+    // useVueValidVPre — Enforce valid `v-pre` Vue directives.
+    //   縛る対象 : src/correctness/useVueValidVPre/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useVueValidVPre を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-pre/
+    {
+      "includes": ["**/src/correctness/useVueValidVPre/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVPre": "error" } } }
+    },
+
+    // useVueValidVText — Enforce valid `v-text` Vue directives.
+    //   縛る対象 : src/correctness/useVueValidVText/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useVueValidVText を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-text/
+    {
+      "includes": ["**/src/correctness/useVueValidVText/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueValidVText": "error" } } }
+    },
+
+    // useVueVForKey — Enforce that elements using `v-for` also specify a unique `key`.
+    //   縛る対象 : src/correctness/useVueVForKey/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useVueVForKey を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-v-for-key/
+    {
+      "includes": ["**/src/correctness/useVueVForKey/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useVueVForKey": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // nursery — override 6 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noVueImportCompilerMacros — Disallow importing Vue compiler macros.
+    //   縛る対象 : src/nursery/noVueImportCompilerMacros/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noVueImportCompilerMacros を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-import-compiler-macros/
+    {
+      "includes": ["**/src/nursery/noVueImportCompilerMacros/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noVueImportCompilerMacros": "error" } } }
+    },
+
+    // noVueVOnNumberValues — Disallow deprecated number modifiers on Vue `v-on` directives.
+    //   縛る対象 : src/nursery/noVueVOnNumberValues/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noVueVOnNumberValues を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-v-on-number-values/
+    {
+      "includes": ["**/src/nursery/noVueVOnNumberValues/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noVueVOnNumberValues": "error" } } }
+    },
+
+    // useScopedStyles — Enforce that `<style>` blocks in Vue SFCs have the `scoped` attribute and that `<style>` blocks in Astro components do not have the `is:global` directive.
+    //   縛る対象 : src/nursery/useScopedStyles/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/useScopedStyles を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-scoped-styles/
+    {
+      "includes": ["**/src/nursery/useScopedStyles/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useScopedStyles": "error" } } }
+    },
+
+    // useVueConsistentDefinePropsDeclaration — Enforce consistent `defineProps` declaration style.
+    //   縛る対象 : src/nursery/useVueConsistentDefinePropsDeclaration/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useVueConsistentDefinePropsDeclaration を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-consistent-define-props-declaration/
+    {
+      "includes": ["**/src/nursery/useVueConsistentDefinePropsDeclaration/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useVueConsistentDefinePropsDeclaration": "error" } } }
+    },
+
+    // useVueNextTickPromise — Enforces Promise syntax when using Vue `nextTick`.
+    //   縛る対象 : src/nursery/useVueNextTickPromise/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useVueNextTickPromise を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-next-tick-promise/
+    {
+      "includes": ["**/src/nursery/useVueNextTickPromise/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useVueNextTickPromise": "error" } } }
+    },
+
+    // useVueValidVFor — Enforces valid `v-for` directives in Vue templates.
+    //   縛る対象 : src/nursery/useVueValidVFor/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/nursery/useVueValidVFor を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-valid-v-for/
+    {
+      "includes": ["**/src/nursery/useVueValidVFor/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useVueValidVFor": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // performance — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // useVueVapor — Enforce opting in to Vue Vapor mode in `<script setup>` blocks.
+    //   縛る対象 : src/performance/useVueVapor/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/performance/useVueVapor を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-vapor/
+    {
+      "includes": ["**/src/performance/useVueVapor/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "useVueVapor": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // style — override 11 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noVueOptionsApi — Disallow the use of Vue Options API.
+    //   縛る対象 : src/style/noVueOptionsApi/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/style/noVueOptionsApi を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-options-api/
+    {
+      "includes": ["**/src/style/noVueOptionsApi/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noVueOptionsApi": "error" } } }
+    },
+
+    // useVueConsistentVBindStyle — Enforce a consistent style for `v-bind` in Vue templates.
+    //   縛る対象 : src/style/useVueConsistentVBindStyle/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueConsistentVBindStyle を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style/
+    {
+      "includes": ["**/src/style/useVueConsistentVBindStyle/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useVueConsistentVBindStyle": "error" } } }
+    },
+
+    // useVueConsistentVBindStyle — Enforce a consistent style for `v-bind` in Vue templates.
+    //   縛る対象 : src/style/useVueConsistentVBindStyle/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueConsistentVBindStyle を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-consistent-v-bind-style/
+    {
+      "includes": ["**/src/style/useVueConsistentVBindStyle/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": { "useVueConsistentVBindStyle": { "level": "error", "options": { "style": "longhand" } } }
+        }
+      }
+    },
+
+    // useVueConsistentVOnStyle — Enforce a consistent style for `v-on` in Vue templates.
+    //   縛る対象 : src/style/useVueConsistentVOnStyle/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueConsistentVOnStyle を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style/
+    {
+      "includes": ["**/src/style/useVueConsistentVOnStyle/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useVueConsistentVOnStyle": "error" } } }
+    },
+
+    // useVueConsistentVOnStyle — Enforce a consistent style for `v-on` in Vue templates.
+    //   縛る対象 : src/style/useVueConsistentVOnStyle/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueConsistentVOnStyle を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-consistent-v-on-style/
+    {
+      "includes": ["**/src/style/useVueConsistentVOnStyle/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": { "useVueConsistentVOnStyle": { "level": "error", "options": { "style": "longhand" } } }
+        }
+      }
+    },
+
+    // useVueDefineMacrosOrder — Enforce specific order of Vue compiler macros.
+    //   縛る対象 : src/style/useVueDefineMacrosOrder/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/style/useVueDefineMacrosOrder を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-define-macros-order/
+    {
+      "includes": ["**/src/style/useVueDefineMacrosOrder/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useVueDefineMacrosOrder": "error" } } }
+    },
+
+    // useVueHyphenatedAttributes — Enforce hyphenated (kebab-case) attribute names in Vue templates.
+    //   縛る対象 : src/style/useVueHyphenatedAttributes/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueHyphenatedAttributes を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes/
+    {
+      "includes": ["**/src/style/useVueHyphenatedAttributes/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useVueHyphenatedAttributes": "error" } } }
+    },
+
+    // useVueHyphenatedAttributes — Enforce hyphenated (kebab-case) attribute names in Vue templates.
+    //   縛る対象 : src/style/useVueHyphenatedAttributes/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueHyphenatedAttributes を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes/
+    {
+      "includes": ["**/src/style/useVueHyphenatedAttributes/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueHyphenatedAttributes": { "level": "error", "options": { "ignore": ["someProp", "fooBar"] } }
+          }
+        }
+      }
+    },
+
+    // useVueHyphenatedAttributes — Enforce hyphenated (kebab-case) attribute names in Vue templates.
+    //   縛る対象 : src/style/useVueHyphenatedAttributes/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueHyphenatedAttributes を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-hyphenated-attributes/
+    {
+      "includes": ["**/src/style/useVueHyphenatedAttributes/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueHyphenatedAttributes": { "level": "error", "options": { "ignoreTags": ["MyComp", "AnotherWidget"] } }
+          }
+        }
+      }
+    },
+
+    // useVueMultiWordComponentNames — Enforce multi-word component names in Vue components.
+    //   縛る対象 : src/style/useVueMultiWordComponentNames/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueMultiWordComponentNames を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-multi-word-component-names/
+    {
+      "includes": ["**/src/style/useVueMultiWordComponentNames/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useVueMultiWordComponentNames": "error" } } }
+    },
+
+    // useVueMultiWordComponentNames — Enforce multi-word component names in Vue components.
+    //   縛る対象 : src/style/useVueMultiWordComponentNames/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useVueMultiWordComponentNames を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン vue
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-vue-multi-word-component-names/
+    {
+      "includes": ["**/src/style/useVueMultiWordComponentNames/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": { "useVueMultiWordComponentNames": { "level": "error", "options": { "ignores": ["Foo"] } } }
+        }
+      }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // suspicious — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noVueArrowFuncInWatch — Disallows using arrow functions when defining a watcher.
+    //   縛る対象 : src/suspicious/noVueArrowFuncInWatch/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noVueArrowFuncInWatch を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン vue
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-vue-arrow-func-in-watch/
+    {
+      "includes": ["**/src/suspicious/noVueArrowFuncInWatch/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noVueArrowFuncInWatch": "error" } } }
+    }
+
+  ]
+}

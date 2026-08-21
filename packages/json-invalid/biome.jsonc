@@ -1,0 +1,224 @@
+/**
+ * @biome-tutorial/json-invalid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず失敗する (しかも有効にしたルールの診断しか出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 8 種類 / override: 10 件
+ *     - 検証しているケース  : 17 件 (22 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールの診断が出た」ことと「他のルールの診断が出ていない」ことを同時に検証できます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     correctness    2 件
+ *     nursery        4 件
+ *     source         1 件
+ *     suspicious     3 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 2 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noUndeclaredDependencies — Disallow the use of dependencies that aren't specified in the `package.json`.
+    //   縛る対象 : src/correctness/noUndeclaredDependencies/default/ 配下 (1 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noUndeclaredDependencies を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン project
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-undeclared-dependencies/
+    {
+      "includes": ["**/src/correctness/noUndeclaredDependencies/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUndeclaredDependencies": "error" } } }
+    },
+
+    // noUndeclaredDependencies — Disallow the use of dependencies that aren't specified in the `package.json`.
+    //   縛る対象 : src/correctness/noUndeclaredDependencies/options-2/ 配下 (1 ケース / 3 ファイル)
+    //   有効化   : lint/correctness/noUndeclaredDependencies を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン project
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-undeclared-dependencies/
+    {
+      "includes": ["**/src/correctness/noUndeclaredDependencies/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": {
+              "level": "error",
+              "options": { "devDependencies": ["**/tests/*.test.js", "**/tests/*.spec.js"] }
+            }
+          }
+        }
+      }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // nursery — override 4 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noEmptyObjectKeys — Disallow empty keys in JSON objects.
+    //   縛る対象 : src/nursery/noEmptyObjectKeys/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/nursery/noEmptyObjectKeys を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-empty-object-keys/
+    {
+      "includes": ["**/src/nursery/noEmptyObjectKeys/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noEmptyObjectKeys": "error" } } }
+    },
+
+    // noTopLevelLiterals — Require the JSON top-level value to be an array or object.
+    //   縛る対象 : src/nursery/noTopLevelLiterals/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/nursery/noTopLevelLiterals を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-top-level-literals/
+    {
+      "includes": ["**/src/nursery/noTopLevelLiterals/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noTopLevelLiterals": "error" } } }
+    },
+
+    // useReactCompiler — Validate files with React Compiler.
+    //   縛る対象 : src/nursery/useReactCompiler/default/ 配下 (1 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/useReactCompiler を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-compiler/
+    {
+      "includes": ["**/src/nursery/useReactCompiler/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useReactCompiler": "error" } } }
+    },
+
+    // useReactCompiler — Validate files with React Compiler.
+    //   縛る対象 : src/nursery/useReactCompiler/options-1/ 配下 (1 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/useReactCompiler を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-compiler/
+    {
+      "includes": ["**/src/nursery/useReactCompiler/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": { "useReactCompiler": { "level": "error", "options": { "compilationMode": "all" } } }
+        }
+      }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // source — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // useSortedPackageJson — Organize package.json fields according to established conventions.
+    //   縛る対象 : src/source/useSortedPackageJson/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : assist/source/useSortedPackageJson を "on" にする
+    //   ルール情報: assist アクション ・ recommended ではない ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/assist/actions/use-sorted-package-json/
+    {
+      "includes": ["**/src/source/useSortedPackageJson/default/**"],
+      "assist": { "enabled": true, "actions": { "source": { "useSortedPackageJson": "on" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // suspicious — override 3 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateDependencies — Prevent the listing of duplicate dependencies.
+    //   縛る対象 : src/suspicious/noDuplicateDependencies/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateDependencies を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-dependencies/
+    {
+      "includes": ["**/src/suspicious/noDuplicateDependencies/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateDependencies": "error" } } }
+    },
+
+    // noQuickfixBiome — Disallow the use if `quickfix.biome` inside editor settings file.
+    //   縛る対象 : src/suspicious/noQuickfixBiome/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noQuickfixBiome を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ・ 自動修正 safe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-quickfix-biome/
+    {
+      "includes": ["**/src/suspicious/noQuickfixBiome/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noQuickfixBiome": "error" } } }
+    },
+
+    // useRequiredScripts — Enforce the presence of required scripts in package.json.
+    //   縛る対象 : src/suspicious/useRequiredScripts/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/useRequiredScripts を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-required-scripts/
+    {
+      "includes": ["**/src/suspicious/useRequiredScripts/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": { "useRequiredScripts": { "level": "error", "options": { "requiredScripts": ["build"] } } }
+        }
+      }
+    }
+
+  ]
+}

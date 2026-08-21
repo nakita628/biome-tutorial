@@ -1,3 +1,4 @@
-packages:
-  - "packages/*"
-  - "tools"
+# packages/ 以下は Biome を検証するための fixture であり、
+# npm パッケージとしてインストールする対象ではないためワークスペースには含めない。
+# (fixture の package.json は Biome がフレームワークやバージョンを検出するためだけに置いてある)
+packages: []

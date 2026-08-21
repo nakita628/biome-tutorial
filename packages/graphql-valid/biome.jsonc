@@ -1,0 +1,315 @@
+/**
+ * @biome-tutorial/graphql-valid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず成功する (診断が 1 件も出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 18 種類 / override: 20 件
+ *     - 検証しているケース  : 24 件 (24 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールから見て問題のないコード」だけを集められます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     correctness    6 件
+ *     nursery        1 件
+ *     source         2 件
+ *     style          8 件
+ *     suspicious     3 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 6 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateArgumentNames — Require all argument names for fields & directives to be unique.
+    //   縛る対象 : src/correctness/noDuplicateArgumentNames/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noDuplicateArgumentNames を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-argument-names/
+    {
+      "includes": ["**/src/correctness/noDuplicateArgumentNames/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noDuplicateArgumentNames": "error" } } }
+    },
+
+    // noDuplicateEnumValueNames — Require all enum value names to be unique.
+    //   縛る対象 : src/correctness/noDuplicateEnumValueNames/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noDuplicateEnumValueNames を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-enum-value-names/
+    {
+      "includes": ["**/src/correctness/noDuplicateEnumValueNames/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noDuplicateEnumValueNames": "error" } } }
+    },
+
+    // noDuplicateInputFieldNames — Require fields within an input object to be unique.
+    //   縛る対象 : src/correctness/noDuplicateInputFieldNames/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noDuplicateInputFieldNames を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-input-field-names/
+    {
+      "includes": ["**/src/correctness/noDuplicateInputFieldNames/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noDuplicateInputFieldNames": "error" } } }
+    },
+
+    // noDuplicateVariableNames — Require all variable definitions to be unique.
+    //   縛る対象 : src/correctness/noDuplicateVariableNames/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noDuplicateVariableNames を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-variable-names/
+    {
+      "includes": ["**/src/correctness/noDuplicateVariableNames/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noDuplicateVariableNames": "error" } } }
+    },
+
+    // useGraphqlNamedOperations — Enforce specifying the name of GraphQL operations.
+    //   縛る対象 : src/correctness/useGraphqlNamedOperations/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useGraphqlNamedOperations を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-graphql-named-operations/
+    {
+      "includes": ["**/src/correctness/useGraphqlNamedOperations/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useGraphqlNamedOperations": "error" } } }
+    },
+
+    // useLoneAnonymousOperation — Disallow anonymous operations when more than one operation specified in document.
+    //   縛る対象 : src/correctness/useLoneAnonymousOperation/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useLoneAnonymousOperation を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-lone-anonymous-operation/
+    {
+      "includes": ["**/src/correctness/useLoneAnonymousOperation/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useLoneAnonymousOperation": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // nursery — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateFieldDefinitionNames — Require all fields of a type to be unique.
+    //   縛る対象 : src/nursery/noDuplicateFieldDefinitionNames/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/nursery/noDuplicateFieldDefinitionNames を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-field-definition-names/
+    {
+      "includes": ["**/src/nursery/noDuplicateFieldDefinitionNames/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noDuplicateFieldDefinitionNames": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // source — override 2 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // useSortedSelectionSet — Sort GraphQL selection sets.
+    //   縛る対象 : src/source/useSortedSelectionSet/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : assist/source/useSortedSelectionSet を "on" にする
+    //   ルール情報: assist アクション ・ recommended ではない ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/assist/actions/use-sorted-selection-set/
+    {
+      "includes": ["**/src/source/useSortedSelectionSet/default/**"],
+      "assist": { "enabled": true, "actions": { "source": { "useSortedSelectionSet": "on" } } }
+    },
+
+    // useSortedTypeFields — Sort fields in GraphQL type definitions alphabetically.
+    //   縛る対象 : src/source/useSortedTypeFields/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : assist/source/useSortedTypeFields を "on" にする
+    //   ルール情報: assist アクション ・ recommended ではない ・ 自動修正 safe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/assist/actions/use-sorted-type-fields/
+    {
+      "includes": ["**/src/source/useSortedTypeFields/default/**"],
+      "assist": { "enabled": true, "actions": { "source": { "useSortedTypeFields": "on" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // style — override 8 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noRootType — Disallow the usage of specified root types
+    //   縛る対象 : src/style/noRootType/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/noRootType を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-root-type/
+    {
+      "includes": ["**/src/style/noRootType/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "style": { "noRootType": { "level": "error", "options": { "disallow": ["mutation"] } } } }
+      }
+    },
+
+    // useConsistentGraphqlDescriptions — Require all descriptions to follow the same style (either block or inline) to  maintain consistency and improve readability across the schema.
+    //   縛る対象 : src/style/useConsistentGraphqlDescriptions/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useConsistentGraphqlDescriptions を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-consistent-graphql-descriptions/
+    {
+      "includes": ["**/src/style/useConsistentGraphqlDescriptions/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useConsistentGraphqlDescriptions": "error" } } }
+    },
+
+    // useDeprecatedReason — Require specifying the reason argument when using `@deprecated` directive
+    //   縛る対象 : src/style/useDeprecatedReason/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useDeprecatedReason を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-deprecated-reason/
+    {
+      "includes": ["**/src/style/useDeprecatedReason/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useDeprecatedReason": "error" } } }
+    },
+
+    // useGraphqlNamingConvention — Validates that all enum values are capitalized.
+    //   縛る対象 : src/style/useGraphqlNamingConvention/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useGraphqlNamingConvention を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-graphql-naming-convention/
+    {
+      "includes": ["**/src/style/useGraphqlNamingConvention/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useGraphqlNamingConvention": "error" } } }
+    },
+
+    // useInputName — Require mutation argument to be always called "input"
+    //   縛る対象 : src/style/useInputName/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useInputName を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-input-name/
+    {
+      "includes": ["**/src/style/useInputName/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useInputName": "error" } } }
+    },
+
+    // useInputName — Require mutation argument to be always called "input"
+    //   縛る対象 : src/style/useInputName/options-1/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/style/useInputName を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-input-name/
+    {
+      "includes": ["**/src/style/useInputName/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "style": { "useInputName": { "level": "error", "options": { "checkInputType": "loose" } } } }
+      }
+    },
+
+    // useInputName — Require mutation argument to be always called "input"
+    //   縛る対象 : src/style/useInputName/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useInputName を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-input-name/
+    {
+      "includes": ["**/src/style/useInputName/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "style": { "useInputName": { "level": "error", "options": { "checkInputType": "strict" } } } }
+      }
+    },
+
+    // useLoneExecutableDefinition — Require queries, mutations, subscriptions or fragments each to be located in separate files.
+    //   縛る対象 : src/style/useLoneExecutableDefinition/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/style/useLoneExecutableDefinition を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-lone-executable-definition/
+    {
+      "includes": ["**/src/style/useLoneExecutableDefinition/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useLoneExecutableDefinition": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // suspicious — override 3 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateFields — No duplicated fields in GraphQL operations.
+    //   縛る対象 : src/suspicious/noDuplicateFields/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateFields を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-fields/
+    {
+      "includes": ["**/src/suspicious/noDuplicateFields/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateFields": "error" } } }
+    },
+
+    // noDuplicateGraphqlOperationName — Enforce unique operation names across a GraphQL document.
+    //   縛る対象 : src/suspicious/noDuplicateGraphqlOperationName/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateGraphqlOperationName を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-graphql-operation-name/
+    {
+      "includes": ["**/src/suspicious/noDuplicateGraphqlOperationName/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateGraphqlOperationName": "error" } } }
+    },
+
+    // useDeprecatedDate — Require the `@deprecated` directive to specify a deletion date.
+    //   縛る対象 : src/suspicious/useDeprecatedDate/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/useDeprecatedDate を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-deprecated-date/
+    {
+      "includes": ["**/src/suspicious/useDeprecatedDate/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "useDeprecatedDate": "error" } } }
+    }
+
+  ]
+}

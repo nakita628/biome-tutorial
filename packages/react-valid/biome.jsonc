@@ -1,0 +1,1350 @@
+/**
+ * @biome-tutorial/react-valid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず成功する (診断が 1 件も出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 104 種類 / override: 114 件
+ *     - 検証しているケース  : 228 件 (232 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールから見て問題のないコード」だけを集められます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     a11y          39 件
+ *     complexity     1 件
+ *     correctness   16 件
+ *     nursery       21 件
+ *     performance    6 件
+ *     security       5 件
+ *     source         2 件
+ *     style         11 件
+ *     suspicious    13 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // a11y — override 39 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noAccessKey — Enforce that the `accessKey` attribute is not used on any HTML element.
+    //   縛る対象 : src/a11y/noAccessKey/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noAccessKey を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-access-key/
+    {
+      "includes": ["**/src/a11y/noAccessKey/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noAccessKey": "error" } } }
+    },
+
+    // noAmbiguousAnchorText — Disallow ambiguous anchor descriptions.
+    //   縛る対象 : src/a11y/noAmbiguousAnchorText/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noAmbiguousAnchorText を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-ambiguous-anchor-text/
+    {
+      "includes": ["**/src/a11y/noAmbiguousAnchorText/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noAmbiguousAnchorText": "error" } } }
+    },
+
+    // noAriaHiddenOnFocusable — Enforce that aria-hidden="true" is not set on focusable elements.
+    //   縛る対象 : src/a11y/noAriaHiddenOnFocusable/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/a11y/noAriaHiddenOnFocusable を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-aria-hidden-on-focusable/
+    {
+      "includes": ["**/src/a11y/noAriaHiddenOnFocusable/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noAriaHiddenOnFocusable": "error" } } }
+    },
+
+    // noAriaUnsupportedElements — Enforce that elements that do not support ARIA roles, states, and properties do not have those attributes.
+    //   縛る対象 : src/a11y/noAriaUnsupportedElements/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/noAriaUnsupportedElements を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-aria-unsupported-elements/
+    {
+      "includes": ["**/src/a11y/noAriaUnsupportedElements/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noAriaUnsupportedElements": "error" } } }
+    },
+
+    // noAutofocus — Enforce that autoFocus prop is not used on elements.
+    //   縛る対象 : src/a11y/noAutofocus/default/ 配下 (6 ケース / 6 ファイル)
+    //   有効化   : lint/a11y/noAutofocus を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-autofocus/
+    {
+      "includes": ["**/src/a11y/noAutofocus/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noAutofocus": "error" } } }
+    },
+
+    // noDistractingElements — Enforces that no distracting elements are used.
+    //   縛る対象 : src/a11y/noDistractingElements/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noDistractingElements を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-distracting-elements/
+    {
+      "includes": ["**/src/a11y/noDistractingElements/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noDistractingElements": "error" } } }
+    },
+
+    // noHeaderScope — The scope prop should be used only on `<th>` elements.
+    //   縛る対象 : src/a11y/noHeaderScope/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/noHeaderScope を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-header-scope/
+    {
+      "includes": ["**/src/a11y/noHeaderScope/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noHeaderScope": "error" } } }
+    },
+
+    // noInteractiveElementToNoninteractiveRole — Enforce that non-interactive ARIA roles are not assigned to interactive HTML elements.
+    //   縛る対象 : src/a11y/noInteractiveElementToNoninteractiveRole/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/a11y/noInteractiveElementToNoninteractiveRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-interactive-element-to-noninteractive-role/
+    {
+      "includes": ["**/src/a11y/noInteractiveElementToNoninteractiveRole/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noInteractiveElementToNoninteractiveRole": "error" } } }
+    },
+
+    // noLabelWithoutControl — Enforce that a label element or component has a text label and an associated input.
+    //   縛る対象 : src/a11y/noLabelWithoutControl/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noLabelWithoutControl を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-label-without-control/
+    {
+      "includes": ["**/src/a11y/noLabelWithoutControl/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noLabelWithoutControl": "error" } } }
+    },
+
+    // noNoninteractiveElementInteractions — Disallow use event handlers on non-interactive elements.
+    //   縛る対象 : src/a11y/noNoninteractiveElementInteractions/default/ 配下 (6 ケース / 6 ファイル)
+    //   有効化   : lint/a11y/noNoninteractiveElementInteractions を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-noninteractive-element-interactions/
+    {
+      "includes": ["**/src/a11y/noNoninteractiveElementInteractions/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noNoninteractiveElementInteractions": "error" } } }
+    },
+
+    // noNoninteractiveElementToInteractiveRole — Enforce that interactive ARIA roles are not assigned to non-interactive HTML elements.
+    //   縛る対象 : src/a11y/noNoninteractiveElementToInteractiveRole/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noNoninteractiveElementToInteractiveRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-noninteractive-element-to-interactive-role/
+    {
+      "includes": ["**/src/a11y/noNoninteractiveElementToInteractiveRole/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noNoninteractiveElementToInteractiveRole": "error" } } }
+    },
+
+    // noNoninteractiveTabindex — Enforce that `tabIndex` is not assigned to non-interactive HTML elements.
+    //   縛る対象 : src/a11y/noNoninteractiveTabindex/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/a11y/noNoninteractiveTabindex を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-noninteractive-tabindex/
+    {
+      "includes": ["**/src/a11y/noNoninteractiveTabindex/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noNoninteractiveTabindex": "error" } } }
+    },
+
+    // noPositiveTabindex — Prevent the usage of positive integers on `tabIndex` property
+    //   縛る対象 : src/a11y/noPositiveTabindex/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noPositiveTabindex を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-positive-tabindex/
+    {
+      "includes": ["**/src/a11y/noPositiveTabindex/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noPositiveTabindex": "error" } } }
+    },
+
+    // noRedundantAlt — Enforce `img` alt prop does not contain the word "image", "picture", or "photo".
+    //   縛る対象 : src/a11y/noRedundantAlt/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/noRedundantAlt を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-redundant-alt/
+    {
+      "includes": ["**/src/a11y/noRedundantAlt/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noRedundantAlt": "error" } } }
+    },
+
+    // noRedundantRoles — Enforce explicit `role` property is not the same as implicit/default role property on an element.
+    //   縛る対象 : src/a11y/noRedundantRoles/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/a11y/noRedundantRoles を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-redundant-roles/
+    {
+      "includes": ["**/src/a11y/noRedundantRoles/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noRedundantRoles": "error" } } }
+    },
+
+    // noStaticElementInteractions — Enforce that static, visible elements (such as `<div>`) that have click handlers use the valid role attribute.
+    //   縛る対象 : src/a11y/noStaticElementInteractions/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/noStaticElementInteractions を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-static-element-interactions/
+    {
+      "includes": ["**/src/a11y/noStaticElementInteractions/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noStaticElementInteractions": "error" } } }
+    },
+
+    // noSvgWithoutTitle — Enforces the usage of the `title` element for the `svg` element.
+    //   縛る対象 : src/a11y/noSvgWithoutTitle/default/ 配下 (8 ケース / 8 ファイル)
+    //   有効化   : lint/a11y/noSvgWithoutTitle を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-svg-without-title/
+    {
+      "includes": ["**/src/a11y/noSvgWithoutTitle/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "noSvgWithoutTitle": "error" } } }
+    },
+
+    // useAltText — Enforce that all elements that require alternative text have meaningful information to relay back to the end user.
+    //   縛る対象 : src/a11y/useAltText/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/a11y/useAltText を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-alt-text/
+    {
+      "includes": ["**/src/a11y/useAltText/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useAltText": "error" } } }
+    },
+
+    // useAnchorContent — Enforce that anchors have content and that the content is accessible to screen readers.
+    //   縛る対象 : src/a11y/useAnchorContent/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/a11y/useAnchorContent を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-anchor-content/
+    {
+      "includes": ["**/src/a11y/useAnchorContent/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useAnchorContent": "error" } } }
+    },
+
+    // useAriaActivedescendantWithTabindex — Enforce that `tabIndex` is assigned to non-interactive HTML elements with `aria-activedescendant`.
+    //   縛る対象 : src/a11y/useAriaActivedescendantWithTabindex/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/useAriaActivedescendantWithTabindex を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-aria-activedescendant-with-tabindex/
+    {
+      "includes": ["**/src/a11y/useAriaActivedescendantWithTabindex/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useAriaActivedescendantWithTabindex": "error" } } }
+    },
+
+    // useAriaPropsForRole — Enforce that elements with ARIA roles must have all required ARIA attributes for that role.
+    //   縛る対象 : src/a11y/useAriaPropsForRole/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/useAriaPropsForRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-aria-props-for-role/
+    {
+      "includes": ["**/src/a11y/useAriaPropsForRole/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useAriaPropsForRole": "error" } } }
+    },
+
+    // useAriaPropsSupportedByRole — Enforce that ARIA properties are valid for the roles that are supported by the element.
+    //   縛る対象 : src/a11y/useAriaPropsSupportedByRole/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useAriaPropsSupportedByRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-aria-props-supported-by-role/
+    {
+      "includes": ["**/src/a11y/useAriaPropsSupportedByRole/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useAriaPropsSupportedByRole": "error" } } }
+    },
+
+    // useButtonType — Enforces the usage of the attribute `type` for the element `button`
+    //   縛る対象 : src/a11y/useButtonType/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useButtonType を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-button-type/
+    {
+      "includes": ["**/src/a11y/useButtonType/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useButtonType": "error" } } }
+    },
+
+    // useFocusableInteractive — Elements with an interactive role and interaction handlers must be focusable.
+    //   縛る対象 : src/a11y/useFocusableInteractive/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/useFocusableInteractive を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-focusable-interactive/
+    {
+      "includes": ["**/src/a11y/useFocusableInteractive/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useFocusableInteractive": "error" } } }
+    },
+
+    // useHeadingContent — Enforce that heading elements (h1, h2, etc.) have content and that the content is accessible to screen readers. Accessible means that it is not hidden using the aria-hidden prop.
+    //   縛る対象 : src/a11y/useHeadingContent/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/a11y/useHeadingContent を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-heading-content/
+    {
+      "includes": ["**/src/a11y/useHeadingContent/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useHeadingContent": "error" } } }
+    },
+
+    // useHtmlLang — Enforce that `html` element has `lang` attribute.
+    //   縛る対象 : src/a11y/useHtmlLang/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/a11y/useHtmlLang を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-html-lang/
+    {
+      "includes": ["**/src/a11y/useHtmlLang/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useHtmlLang": "error" } } }
+    },
+
+    // useIframeTitle — Enforces the usage of the attribute `title` for the element `iframe`.
+    //   縛る対象 : src/a11y/useIframeTitle/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useIframeTitle を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-iframe-title/
+    {
+      "includes": ["**/src/a11y/useIframeTitle/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useIframeTitle": "error" } } }
+    },
+
+    // useKeyWithClickEvents — Enforce elements with a click event handler to also have at least one keyboard event handler.
+    //   縛る対象 : src/a11y/useKeyWithClickEvents/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/a11y/useKeyWithClickEvents を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-key-with-click-events/
+    {
+      "includes": ["**/src/a11y/useKeyWithClickEvents/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useKeyWithClickEvents": "error" } } }
+    },
+
+    // useKeyWithMouseEvents — Enforce `onMouseOver` / `onMouseOut` are accompanied by `onFocus` / `onBlur`.
+    //   縛る対象 : src/a11y/useKeyWithMouseEvents/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useKeyWithMouseEvents を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-key-with-mouse-events/
+    {
+      "includes": ["**/src/a11y/useKeyWithMouseEvents/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useKeyWithMouseEvents": "error" } } }
+    },
+
+    // useMediaCaption — Enforces that `audio` and `video` elements must have a `track` for captions.
+    //   縛る対象 : src/a11y/useMediaCaption/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/a11y/useMediaCaption を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-media-caption/
+    {
+      "includes": ["**/src/a11y/useMediaCaption/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useMediaCaption": "error" } } }
+    },
+
+    // useSemanticElements — Enforces using semantic DOM elements over the ARIA `role` property.
+    //   縛る対象 : src/a11y/useSemanticElements/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/a11y/useSemanticElements を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-semantic-elements/
+    {
+      "includes": ["**/src/a11y/useSemanticElements/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useSemanticElements": "error" } } }
+    },
+
+    // useValidAnchor — Enforce that all anchors are valid, and they are navigable elements.
+    //   縛る対象 : src/a11y/useValidAnchor/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/a11y/useValidAnchor を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-anchor/
+    {
+      "includes": ["**/src/a11y/useValidAnchor/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useValidAnchor": "error" } } }
+    },
+
+    // useValidAriaProps — Ensures that ARIA properties `aria-*` are all valid.
+    //   縛る対象 : src/a11y/useValidAriaProps/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidAriaProps を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-aria-props/
+    {
+      "includes": ["**/src/a11y/useValidAriaProps/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useValidAriaProps": "error" } } }
+    },
+
+    // useValidAriaRole — Elements with ARIA roles must use a valid, non-abstract ARIA role.
+    //   縛る対象 : src/a11y/useValidAriaRole/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidAriaRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-aria-role/
+    {
+      "includes": ["**/src/a11y/useValidAriaRole/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useValidAriaRole": "error" } } }
+    },
+
+    // useValidAriaRole — Elements with ARIA roles must use a valid, non-abstract ARIA role.
+    //   縛る対象 : src/a11y/useValidAriaRole/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidAriaRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-aria-role/
+    {
+      "includes": ["**/src/a11y/useValidAriaRole/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "a11y": {
+            "useValidAriaRole": { "level": "error", "options": { "allowInvalidRoles": ["datepicker"] } }
+          }
+        }
+      }
+    },
+
+    // useValidAriaRole — Elements with ARIA roles must use a valid, non-abstract ARIA role.
+    //   縛る対象 : src/a11y/useValidAriaRole/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidAriaRole を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-aria-role/
+    {
+      "includes": ["**/src/a11y/useValidAriaRole/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "a11y": { "useValidAriaRole": { "level": "error", "options": { "ignoreNonDom": true } } } }
+      }
+    },
+
+    // useValidAriaValues — Enforce that ARIA state and property values are valid.
+    //   縛る対象 : src/a11y/useValidAriaValues/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidAriaValues を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-aria-values/
+    {
+      "includes": ["**/src/a11y/useValidAriaValues/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useValidAriaValues": "error" } } }
+    },
+
+    // useValidAutocomplete — Use valid values for the `autocomplete` attribute on `input` elements.
+    //   縛る対象 : src/a11y/useValidAutocomplete/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidAutocomplete を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-autocomplete/
+    {
+      "includes": ["**/src/a11y/useValidAutocomplete/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useValidAutocomplete": "error" } } }
+    },
+
+    // useValidLang — Ensure that the attribute passed to the `lang` attribute is a correct ISO language and/or country.
+    //   縛る対象 : src/a11y/useValidLang/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/a11y/useValidLang を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-valid-lang/
+    {
+      "includes": ["**/src/a11y/useValidLang/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useValidLang": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // complexity — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noUselessFragments — Disallow unnecessary fragments
+    //   縛る対象 : src/complexity/noUselessFragments/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/complexity/noUselessFragments を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-useless-fragments/
+    {
+      "includes": ["**/src/complexity/noUselessFragments/default/**"],
+      "linter": { "enabled": true, "rules": { "complexity": { "noUselessFragments": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 16 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noBeforeInteractiveScriptOutsideDocument — Prevent usage of `next/script`'s `beforeInteractive` strategy outside of `pages/_document.js` in a Next.js project.
+    //   縛る対象 : src/correctness/noBeforeInteractiveScriptOutsideDocument/default/ 配下 (1 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noBeforeInteractiveScriptOutsideDocument を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-before-interactive-script-outside-document/
+    {
+      "includes": ["**/src/correctness/noBeforeInteractiveScriptOutsideDocument/default/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "correctness": { "noBeforeInteractiveScriptOutsideDocument": "error" } }
+      }
+    },
+
+    // noChildrenProp — Prevent passing of **children** as props.
+    //   縛る対象 : src/correctness/noChildrenProp/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noChildrenProp を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-children-prop/
+    {
+      "includes": ["**/src/correctness/noChildrenProp/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noChildrenProp": "error" } } }
+    },
+
+    // noNestedComponentDefinitions — Disallows defining React components inside other components.
+    //   縛る対象 : src/correctness/noNestedComponentDefinitions/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noNestedComponentDefinitions を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-nested-component-definitions/
+    {
+      "includes": ["**/src/correctness/noNestedComponentDefinitions/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noNestedComponentDefinitions": "error" } } }
+    },
+
+    // noNextAsyncClientComponent — Prevent client components from being async functions.
+    //   縛る対象 : src/correctness/noNextAsyncClientComponent/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noNextAsyncClientComponent を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-next-async-client-component/
+    {
+      "includes": ["**/src/correctness/noNextAsyncClientComponent/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noNextAsyncClientComponent": "error" } } }
+    },
+
+    // noReactPropAssignments — Disallow assigning to React component props.
+    //   縛る対象 : src/correctness/noReactPropAssignments/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noReactPropAssignments を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-prop-assignments/
+    {
+      "includes": ["**/src/correctness/noReactPropAssignments/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noReactPropAssignments": "error" } } }
+    },
+
+    // noRenderReturnValue — Prevent the usage of the return value of `React.render`.
+    //   縛る対象 : src/correctness/noRenderReturnValue/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noRenderReturnValue を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-render-return-value/
+    {
+      "includes": ["**/src/correctness/noRenderReturnValue/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noRenderReturnValue": "error" } } }
+    },
+
+    // noRestrictedElements — Disallow the use of configured elements.
+    //   縛る対象 : src/correctness/noRestrictedElements/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noRestrictedElements を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-restricted-elements/
+    {
+      "includes": ["**/src/correctness/noRestrictedElements/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noRestrictedElements": "error" } } }
+    },
+
+    // noSolidDestructuredProps — Disallow destructuring props inside JSX components in Solid projects.
+    //   縛る対象 : src/correctness/noSolidDestructuredProps/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noSolidDestructuredProps を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン solid
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-solid-destructured-props/
+    {
+      "includes": ["**/src/correctness/noSolidDestructuredProps/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noSolidDestructuredProps": "error" } } }
+    },
+
+    // noVoidElementsWithChildren — This rules prevents void elements (AKA self-closing elements) from having children.
+    //   縛る対象 : src/correctness/noVoidElementsWithChildren/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noVoidElementsWithChildren を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-void-elements-with-children/
+    {
+      "includes": ["**/src/correctness/noVoidElementsWithChildren/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noVoidElementsWithChildren": "error" } } }
+    },
+
+    // useExhaustiveDependencies — Enforce correct dependency usage within React hooks.
+    //   縛る対象 : src/correctness/useExhaustiveDependencies/options-3/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useExhaustiveDependencies を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react / next
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-exhaustive-dependencies/
+    {
+      "includes": ["**/src/correctness/useExhaustiveDependencies/options-3/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useExhaustiveDependencies": { "level": "error", "options": { "reportUnnecessaryDependencies": false } }
+          }
+        }
+      }
+    },
+
+    // useImageSize — Enforces that `<img>` elements have both width and height attributes.
+    //   縛る対象 : src/correctness/useImageSize/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useImageSize を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン qwik
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-image-size/
+    {
+      "includes": ["**/src/correctness/useImageSize/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useImageSize": "error" } } }
+    },
+
+    // useInlineScriptId — Enforce `id` attribute on `next/script` components with inline content or `dangerouslySetInnerHTML`.
+    //   縛る対象 : src/correctness/useInlineScriptId/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useInlineScriptId を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-inline-script-id/
+    {
+      "includes": ["**/src/correctness/useInlineScriptId/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useInlineScriptId": "error" } } }
+    },
+
+    // useJsxKeyInIterable — Disallow missing key props in iterators/collection literals.
+    //   縛る対象 : src/correctness/useJsxKeyInIterable/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useJsxKeyInIterable を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react / qwik
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-jsx-key-in-iterable/
+    {
+      "includes": ["**/src/correctness/useJsxKeyInIterable/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useJsxKeyInIterable": "error" } } }
+    },
+
+    // useQwikClasslist — Prefer using the `class` prop as a classlist over the `classnames` helper.
+    //   縛る対象 : src/correctness/useQwikClasslist/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/useQwikClasslist を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン qwik
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-qwik-classlist/
+    {
+      "includes": ["**/src/correctness/useQwikClasslist/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useQwikClasslist": "error" } } }
+    },
+
+    // useUniqueElementIds — Prevent the usage of static string literal `id` attribute on elements.
+    //   縛る対象 : src/correctness/useUniqueElementIds/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useUniqueElementIds を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-unique-element-ids/
+    {
+      "includes": ["**/src/correctness/useUniqueElementIds/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "useUniqueElementIds": "error" } } }
+    },
+
+    // useUniqueElementIds — Prevent the usage of static string literal `id` attribute on elements.
+    //   縛る対象 : src/correctness/useUniqueElementIds/options-1/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/useUniqueElementIds を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-unique-element-ids/
+    {
+      "includes": ["**/src/correctness/useUniqueElementIds/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useUniqueElementIds": { "level": "error", "options": { "excludedComponents": ["FormattedMessage"] } }
+          }
+        }
+      }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // nursery — override 21 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noComponentHookFactories — Disallows defining React components or custom hooks inside other functions.
+    //   縛る対象 : src/nursery/noComponentHookFactories/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noComponentHookFactories を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-component-hook-factories/
+    {
+      "includes": ["**/src/nursery/noComponentHookFactories/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noComponentHookFactories": "error" } } }
+    },
+
+    // noInlineStyles — Disallow the use of inline styles.
+    //   縛る対象 : src/nursery/noInlineStyles/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noInlineStyles を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-inline-styles/
+    {
+      "includes": ["**/src/nursery/noInlineStyles/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noInlineStyles": "error" } } }
+    },
+
+    // noJsxLeakedDollar — Flags text nodes with a trailing `$` before a JSX expression.
+    //   縛る対象 : src/nursery/noJsxLeakedDollar/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/nursery/noJsxLeakedDollar を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-jsx-leaked-dollar/
+    {
+      "includes": ["**/src/nursery/noJsxLeakedDollar/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noJsxLeakedDollar": "error" } } }
+    },
+
+    // noJsxNamespace — Disallow JSX namespace syntax.
+    //   縛る対象 : src/nursery/noJsxNamespace/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noJsxNamespace を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-jsx-namespace/
+    {
+      "includes": ["**/src/nursery/noJsxNamespace/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noJsxNamespace": "error" } } }
+    },
+
+    // noNonScalableViewport — Disallow disabling zoom with `user-scalable=no` in the `<meta name="viewport">` element.
+    //   縛る対象 : src/nursery/noNonScalableViewport/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noNonScalableViewport を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-non-scalable-viewport/
+    {
+      "includes": ["**/src/nursery/noNonScalableViewport/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noNonScalableViewport": "error" } } }
+    },
+
+    // noReactNativeLiteralColors — Disallow color literals in React Native styles.
+    //   縛る対象 : src/nursery/noReactNativeLiteralColors/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noReactNativeLiteralColors を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン reactNative
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-native-literal-colors/
+    {
+      "includes": ["**/src/nursery/noReactNativeLiteralColors/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noReactNativeLiteralColors": "error" } } }
+    },
+
+    // noReactNativeRawText — Disallow raw text outside `<Text>` components in React Native.
+    //   縛る対象 : src/nursery/noReactNativeRawText/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noReactNativeRawText を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン reactNative
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-native-raw-text/
+    {
+      "includes": ["**/src/nursery/noReactNativeRawText/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noReactNativeRawText": "error" } } }
+    },
+
+    // noReactNativeRawText — Disallow raw text outside `<Text>` components in React Native.
+    //   縛る対象 : src/nursery/noReactNativeRawText/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noReactNativeRawText を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン reactNative
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-native-raw-text/
+    {
+      "includes": ["**/src/nursery/noReactNativeRawText/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": { "noReactNativeRawText": { "level": "error", "options": { "skip": ["Title"] } } }
+        }
+      }
+    },
+
+    // noReactStringRefs — Disallow string refs in React components.
+    //   縛る対象 : src/nursery/noReactStringRefs/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noReactStringRefs を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-string-refs/
+    {
+      "includes": ["**/src/nursery/noReactStringRefs/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noReactStringRefs": "error" } } }
+    },
+
+    // noTailwindArbitraryValue — Disallow arbitrary values in Tailwind CSS utility classes.
+    //   縛る対象 : src/nursery/noTailwindArbitraryValue/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noTailwindArbitraryValue を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン tailwind
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-tailwind-arbitrary-value/
+    {
+      "includes": ["**/src/nursery/noTailwindArbitraryValue/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noTailwindArbitraryValue": "error" } } }
+    },
+
+    // noUndeclaredClasses — Reports CSS class names in JSX `className` or `class` attributes that are not defined
+    //   縛る対象 : src/nursery/noUndeclaredClasses/default/ 配下 (1 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noUndeclaredClasses を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン project
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-undeclared-classes/
+    {
+      "includes": ["**/src/nursery/noUndeclaredClasses/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noUndeclaredClasses": "error" } } }
+    },
+
+    // useControlLabel — Enforce that interactive control elements have an accessible label.
+    //   縛る対象 : src/nursery/useControlLabel/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/nursery/useControlLabel を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-control-label/
+    {
+      "includes": ["**/src/nursery/useControlLabel/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useControlLabel": "error" } } }
+    },
+
+    // useIframeSandbox — Enforce the 'sandbox' attribute for 'iframe' elements.
+    //   縛る対象 : src/nursery/useIframeSandbox/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useIframeSandbox を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-iframe-sandbox/
+    {
+      "includes": ["**/src/nursery/useIframeSandbox/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useIframeSandbox": "error" } } }
+    },
+
+    // useQwikLoaderLocation — Enforce that Qwik loader functions are declared in the correct location.
+    //   縛る対象 : src/nursery/useQwikLoaderLocation/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useQwikLoaderLocation を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン qwik
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-qwik-loader-location/
+    {
+      "includes": ["**/src/nursery/useQwikLoaderLocation/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useQwikLoaderLocation": "error" } } }
+    },
+
+    // useReactAsyncServerFunction — Require functions with the "use server" directive to be async.
+    //   縛る対象 : src/nursery/useReactAsyncServerFunction/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useReactAsyncServerFunction を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-async-server-function/
+    {
+      "includes": ["**/src/nursery/useReactAsyncServerFunction/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useReactAsyncServerFunction": "error" } } }
+    },
+
+    // useReactCompiler — Validate files with React Compiler.
+    //   縛る対象 : src/nursery/useReactCompiler/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useReactCompiler を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-compiler/
+    {
+      "includes": ["**/src/nursery/useReactCompiler/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useReactCompiler": "error" } } }
+    },
+
+    // useReactFunctionComponentDefinition — Enforce a specific function type for React function components.
+    //   縛る対象 : src/nursery/useReactFunctionComponentDefinition/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useReactFunctionComponentDefinition を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-function-component-definition/
+    {
+      "includes": ["**/src/nursery/useReactFunctionComponentDefinition/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useReactFunctionComponentDefinition": "error" } } }
+    },
+
+    // useReactFunctionComponentDefinition — Enforce a specific function type for React function components.
+    //   縛る対象 : src/nursery/useReactFunctionComponentDefinition/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useReactFunctionComponentDefinition を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-function-component-definition/
+    {
+      "includes": ["**/src/nursery/useReactFunctionComponentDefinition/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": { "level": "error", "options": { "namedComponents": "functionDeclaration" } }
+          }
+        }
+      }
+    },
+
+    // useReactFunctionComponentDefinition — Enforce a specific function type for React function components.
+    //   縛る対象 : src/nursery/useReactFunctionComponentDefinition/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useReactFunctionComponentDefinition を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-function-component-definition/
+    {
+      "includes": ["**/src/nursery/useReactFunctionComponentDefinition/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": { "level": "error", "options": { "namedComponents": "functionExpression" } }
+          }
+        }
+      }
+    },
+
+    // useReactFunctionComponentDefinition — Enforce a specific function type for React function components.
+    //   縛る対象 : src/nursery/useReactFunctionComponentDefinition/options-3/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useReactFunctionComponentDefinition を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-function-component-definition/
+    {
+      "includes": ["**/src/nursery/useReactFunctionComponentDefinition/options-3/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": { "level": "error", "options": { "namedComponents": "arrowFunction" } }
+          }
+        }
+      }
+    },
+
+    // useTailwindShorthandClasses — Enforce using fewer Tailwind utilities instead of multiple utilities that are functionally the same.
+    //   縛る対象 : src/nursery/useTailwindShorthandClasses/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useTailwindShorthandClasses を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン tailwind
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-tailwind-shorthand-classes/
+    {
+      "includes": ["**/src/nursery/useTailwindShorthandClasses/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useTailwindShorthandClasses": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // performance — override 6 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noImgElement — Prevent usage of `<img>` element in a Next.js project.
+    //   縛る対象 : src/performance/noImgElement/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/performance/noImgElement を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-img-element/
+    {
+      "includes": ["**/src/performance/noImgElement/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "noImgElement": "error" } } }
+    },
+
+    // noJsxPropsBind — Disallow .bind(), arrow functions, or function expressions in JSX props
+    //   縛る対象 : src/performance/noJsxPropsBind/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/performance/noJsxPropsBind を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-jsx-props-bind/
+    {
+      "includes": ["**/src/performance/noJsxPropsBind/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "noJsxPropsBind": "error" } } }
+    },
+
+    // noSyncScripts — Prevent the usage of synchronous scripts.
+    //   縛る対象 : src/performance/noSyncScripts/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/performance/noSyncScripts を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react / next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-sync-scripts/
+    {
+      "includes": ["**/src/performance/noSyncScripts/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "noSyncScripts": "error" } } }
+    },
+
+    // noUnwantedPolyfillio — Prevent duplicate polyfills from Polyfill.io.
+    //   縛る対象 : src/performance/noUnwantedPolyfillio/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/performance/noUnwantedPolyfillio を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unwanted-polyfillio/
+    {
+      "includes": ["**/src/performance/noUnwantedPolyfillio/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "noUnwantedPolyfillio": "error" } } }
+    },
+
+    // useGoogleFontPreconnect — Ensure the `preconnect` attribute is used when using Google Fonts.
+    //   縛る対象 : src/performance/useGoogleFontPreconnect/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/performance/useGoogleFontPreconnect を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 safe ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-google-font-preconnect/
+    {
+      "includes": ["**/src/performance/useGoogleFontPreconnect/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "useGoogleFontPreconnect": "error" } } }
+    },
+
+    // useSolidForComponent — Enforce using Solid's `<For />` component for mapping an array to JSX elements.
+    //   縛る対象 : src/performance/useSolidForComponent/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/performance/useSolidForComponent を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン solid
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-solid-for-component/
+    {
+      "includes": ["**/src/performance/useSolidForComponent/default/**"],
+      "linter": { "enabled": true, "rules": { "performance": { "useSolidForComponent": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // security — override 5 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noBlankTarget — Disallow `target="_blank"` attribute without `rel="noopener"`.
+    //   縛る対象 : src/security/noBlankTarget/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/security/noBlankTarget を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-blank-target/
+    {
+      "includes": ["**/src/security/noBlankTarget/default/**"],
+      "linter": { "enabled": true, "rules": { "security": { "noBlankTarget": "error" } } }
+    },
+
+    // noBlankTarget — Disallow `target="_blank"` attribute without `rel="noopener"`.
+    //   縛る対象 : src/security/noBlankTarget/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/security/noBlankTarget を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 safe
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-blank-target/
+    {
+      "includes": ["**/src/security/noBlankTarget/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "security": {
+            "noBlankTarget": { "level": "error", "options": { "allowDomains": ["https://example.com", "example.org"] } }
+          }
+        }
+      }
+    },
+
+    // noDangerouslySetInnerHtml — Prevent the usage of dangerous JSX props
+    //   縛る対象 : src/security/noDangerouslySetInnerHtml/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/security/noDangerouslySetInnerHtml を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-dangerously-set-inner-html/
+    {
+      "includes": ["**/src/security/noDangerouslySetInnerHtml/default/**"],
+      "linter": { "enabled": true, "rules": { "security": { "noDangerouslySetInnerHtml": "error" } } }
+    },
+
+    // noDangerouslySetInnerHtmlWithChildren — Report when a DOM element or a component uses both `children` and `dangerouslySetInnerHTML` prop.
+    //   縛る対象 : src/security/noDangerouslySetInnerHtmlWithChildren/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/security/noDangerouslySetInnerHtmlWithChildren を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-dangerously-set-inner-html-with-children/
+    {
+      "includes": ["**/src/security/noDangerouslySetInnerHtmlWithChildren/default/**"],
+      "linter": { "enabled": true, "rules": { "security": { "noDangerouslySetInnerHtmlWithChildren": "error" } } }
+    },
+
+    // noScriptUrl — Disallow `javascript:` URLs.
+    //   縛る対象 : src/security/noScriptUrl/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/security/noScriptUrl を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-script-url/
+    {
+      "includes": ["**/src/security/noScriptUrl/default/**"],
+      "linter": { "enabled": true, "rules": { "security": { "noScriptUrl": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // source — override 2 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateClasses — Remove duplicate CSS classes.
+    //   縛る対象 : src/source/noDuplicateClasses/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : assist/source/noDuplicateClasses を "on" にする
+    //   ルール情報: assist アクション ・ recommended ではない ・ 自動修正 safe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/assist/actions/no-duplicate-classes/
+    {
+      "includes": ["**/src/source/noDuplicateClasses/default/**"],
+      "assist": { "enabled": true, "actions": { "source": { "noDuplicateClasses": "on" } } }
+    },
+
+    // useSortedAttributes — Enforce attribute sorting in JSX elements.
+    //   縛る対象 : src/source/useSortedAttributes/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : assist/source/useSortedAttributes を "on" にする
+    //   ルール情報: assist アクション ・ recommended ではない ・ 自動修正 safe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/assist/actions/use-sorted-attributes/
+    {
+      "includes": ["**/src/source/useSortedAttributes/default/**"],
+      "assist": { "enabled": true, "actions": { "source": { "useSortedAttributes": "on" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // style — override 11 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noHeadElement — Prevent usage of `<head>` element in a Next.js project.
+    //   縛る対象 : src/style/noHeadElement/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/noHeadElement を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-head-element/
+    {
+      "includes": ["**/src/style/noHeadElement/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noHeadElement": "error" } } }
+    },
+
+    // noImplicitBoolean — Disallow implicit `true` values on JSX boolean attributes
+    //   縛る対象 : src/style/noImplicitBoolean/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/style/noImplicitBoolean を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-implicit-boolean/
+    {
+      "includes": ["**/src/style/noImplicitBoolean/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noImplicitBoolean": "error" } } }
+    },
+
+    // noJsxLiterals — Disallow string literals inside JSX elements.
+    //   縛る対象 : src/style/noJsxLiterals/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/style/noJsxLiterals を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-jsx-literals/
+    {
+      "includes": ["**/src/style/noJsxLiterals/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noJsxLiterals": "error" } } }
+    },
+
+    // noJsxLiterals — Disallow string literals inside JSX elements.
+    //   縛る対象 : src/style/noJsxLiterals/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/noJsxLiterals を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-jsx-literals/
+    {
+      "includes": ["**/src/style/noJsxLiterals/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noJsxLiterals": { "level": "error", "options": { "allowedStrings": ["Hello", "&nbsp;", "·"] } }
+          }
+        }
+      }
+    },
+
+    // noJsxLiterals — Disallow string literals inside JSX elements.
+    //   縛る対象 : src/style/noJsxLiterals/options-3/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/noJsxLiterals を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-jsx-literals/
+    {
+      "includes": ["**/src/style/noJsxLiterals/options-3/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "style": { "noJsxLiterals": { "level": "error", "options": { "ignoreProps": true } } } }
+      }
+    },
+
+    // useComponentExportOnlyModules — Enforce declaring components only within modules that export React Components exclusively.
+    //   縛る対象 : src/style/useComponentExportOnlyModules/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/style/useComponentExportOnlyModules を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-component-export-only-modules/
+    {
+      "includes": ["**/src/style/useComponentExportOnlyModules/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useComponentExportOnlyModules": "error" } } }
+    },
+
+    // useConsistentCurlyBraces — This rule enforces consistent use of curly braces inside JSX attributes and JSX children.
+    //   縛る対象 : src/style/useConsistentCurlyBraces/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useConsistentCurlyBraces を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-consistent-curly-braces/
+    {
+      "includes": ["**/src/style/useConsistentCurlyBraces/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useConsistentCurlyBraces": "error" } } }
+    },
+
+    // useFragmentSyntax — This rule enforces the use of `<>...</>` over `<Fragment>...</Fragment>`.
+    //   縛る対象 : src/style/useFragmentSyntax/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useFragmentSyntax を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-fragment-syntax/
+    {
+      "includes": ["**/src/style/useFragmentSyntax/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useFragmentSyntax": "error" } } }
+    },
+
+    // useNamingConvention — Enforce naming conventions for everything across a codebase.
+    //   縛る対象 : src/style/useNamingConvention/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useNamingConvention を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-naming-convention/
+    {
+      "includes": ["**/src/style/useNamingConvention/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useNamingConvention": "error" } } }
+    },
+
+    // useReactFunctionComponents — Enforce that components are defined as functions and never as classes.
+    //   縛る対象 : src/style/useReactFunctionComponents/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/useReactFunctionComponents を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-react-function-components/
+    {
+      "includes": ["**/src/style/useReactFunctionComponents/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useReactFunctionComponents": "error" } } }
+    },
+
+    // useSelfClosingElements — Prevent extra closing tags for components without children.
+    //   縛る対象 : src/style/useSelfClosingElements/default/ 配下 (6 ケース / 6 ファイル)
+    //   有効化   : lint/style/useSelfClosingElements を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-self-closing-elements/
+    {
+      "includes": ["**/src/style/useSelfClosingElements/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "useSelfClosingElements": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // suspicious — override 13 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noArrayIndexKey — Discourage the usage of Array index in keys.
+    //   縛る対象 : src/suspicious/noArrayIndexKey/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noArrayIndexKey を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-array-index-key/
+    {
+      "includes": ["**/src/suspicious/noArrayIndexKey/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noArrayIndexKey": "error" } } }
+    },
+
+    // noCommentText — Prevent comments from being inserted as text nodes
+    //   縛る対象 : src/suspicious/noCommentText/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noCommentText を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正 unsafe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-comment-text/
+    {
+      "includes": ["**/src/suspicious/noCommentText/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noCommentText": "error" } } }
+    },
+
+    // noDocumentImportInPage — Prevents importing `next/document` outside of `pages/_document.jsx` in Next.js projects.
+    //   縛る対象 : src/suspicious/noDocumentImportInPage/default/ 配下 (2 ケース / 3 ファイル)
+    //   有効化   : lint/suspicious/noDocumentImportInPage を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-document-import-in-page/
+    {
+      "includes": ["**/src/suspicious/noDocumentImportInPage/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDocumentImportInPage": "error" } } }
+    },
+
+    // noDuplicatedSpreadProps — Disallow JSX prop spreading the same identifier multiple times.
+    //   縛る対象 : src/suspicious/noDuplicatedSpreadProps/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDuplicatedSpreadProps を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react / solid
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicated-spread-props/
+    {
+      "includes": ["**/src/suspicious/noDuplicatedSpreadProps/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicatedSpreadProps": "error" } } }
+    },
+
+    // noDuplicateJsxProps — Prevents JSX properties to be assigned multiple times.
+    //   縛る対象 : src/suspicious/noDuplicateJsxProps/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateJsxProps を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-jsx-props/
+    {
+      "includes": ["**/src/suspicious/noDuplicateJsxProps/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateJsxProps": "error" } } }
+    },
+
+    // noHeadImportInDocument — Prevent using the `next/head` module in `pages/_document.js` on Next.js projects.
+    //   縛る対象 : src/suspicious/noHeadImportInDocument/default/ 配下 (2 ケース / 3 ファイル)
+    //   有効化   : lint/suspicious/noHeadImportInDocument を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン next
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-head-import-in-document/
+    {
+      "includes": ["**/src/suspicious/noHeadImportInDocument/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noHeadImportInDocument": "error" } } }
+    },
+
+    // noLeakedRender — Prevent problematic leaked values from being rendered.
+    //   縛る対象 : src/suspicious/noLeakedRender/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/suspicious/noLeakedRender を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-leaked-render/
+    {
+      "includes": ["**/src/suspicious/noLeakedRender/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noLeakedRender": "error" } } }
+    },
+
+    // noReactForwardRef — Replaces usages of `forwardRef` with passing `ref` as a prop.
+    //   縛る対象 : src/suspicious/noReactForwardRef/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noReactForwardRef を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-forward-ref/
+    {
+      "includes": ["**/src/suspicious/noReactForwardRef/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noReactForwardRef": "error" } } }
+    },
+
+    // noReactSpecificProps — Prevents React-specific JSX properties from being used.
+    //   縛る対象 : src/suspicious/noReactSpecificProps/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noReactSpecificProps を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正 safe ・ ドメイン solid / qwik
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-react-specific-props/
+    {
+      "includes": ["**/src/suspicious/noReactSpecificProps/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noReactSpecificProps": "error" } } }
+    },
+
+    // noSuspiciousSemicolonInJsx — It detects possible "wrong" semicolons inside JSX elements.
+    //   縛る対象 : src/suspicious/noSuspiciousSemicolonInJsx/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noSuspiciousSemicolonInJsx を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-suspicious-semicolon-in-jsx/
+    {
+      "includes": ["**/src/suspicious/noSuspiciousSemicolonInJsx/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noSuspiciousSemicolonInJsx": "error" } } }
+    },
+
+    // noUnknownAttribute — Disallow unknown DOM properties.
+    //   縛る対象 : src/suspicious/noUnknownAttribute/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/suspicious/noUnknownAttribute を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし ・ ドメイン react
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-attribute/
+    {
+      "includes": ["**/src/suspicious/noUnknownAttribute/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noUnknownAttribute": "error" } } }
+    },
+
+    // noUselessEscapeInString — Disallow unnecessary escapes in string literals.
+    //   縛る対象 : src/suspicious/noUselessEscapeInString/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noUselessEscapeInString を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-useless-escape-in-string/
+    {
+      "includes": ["**/src/suspicious/noUselessEscapeInString/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noUselessEscapeInString": "error" } } }
+    },
+
+    // useGoogleFontDisplay — Enforces the use of a recommended `display` strategy with Google Fonts.
+    //   縛る対象 : src/suspicious/useGoogleFontDisplay/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/suspicious/useGoogleFontDisplay を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-google-font-display/
+    {
+      "includes": ["**/src/suspicious/useGoogleFontDisplay/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "useGoogleFontDisplay": "error" } } }
+    }
+
+  ]
+}

@@ -1,8 +1,23 @@
 {
   "name": "biome-tutorial",
+  "version": "0.0.0",
   "private": true,
   "type": "module",
   "packageManager": "pnpm@11.7.0",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "check:invalid": "node tools/check-packages.mjs invalid",
+    "check:tools": "biome check tools",
+    "check:valid": "node tools/check-packages.mjs valid",
+    "generate": "node tools/generate.mjs && node tools/report.mjs",
+    "test": "pnpm check:valid && pnpm check:invalid && pnpm verify && pnpm verify:standalone && pnpm verify:config",
+    "verify": "node tools/verify.mjs",
+    "verify:config": "node tools/verify-config-reference.mjs",
+    "verify:fixes": "node tools/verify-fixes.mjs",
+    "verify:standalone": "node tools/verify-standalone.mjs"
+  },
   "devDependencies": {
     "@biomejs/biome": "2.5.9"
   }

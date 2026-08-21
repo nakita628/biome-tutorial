@@ -1,0 +1,4 @@
+{
+  "name": "next-head-valid-fixture",
+  "dependencies": { "next": "^15.0.0" }
+}

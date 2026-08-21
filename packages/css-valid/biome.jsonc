@@ -1,0 +1,669 @@
+/**
+ * @biome-tutorial/css-valid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず成功する (診断が 1 件も出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 34 種類 / override: 47 件
+ *     - 検証しているケース  : 97 件 (98 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールから見て問題のないコード」だけを集められます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     a11y           1 件
+ *     complexity     1 件
+ *     correctness   16 件
+ *     nursery       13 件
+ *     source         1 件
+ *     style          3 件
+ *     suspicious    12 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // a11y — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // useGenericFontNames — Disallow a missing generic family keyword within font families.
+    //   縛る対象 : src/a11y/useGenericFontNames/default/ 配下 (5 ケース / 5 ファイル)
+    //   有効化   : lint/a11y/useGenericFontNames を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-generic-font-names/
+    {
+      "includes": ["**/src/a11y/useGenericFontNames/default/**"],
+      "linter": { "enabled": true, "rules": { "a11y": { "useGenericFontNames": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // complexity — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noImportantStyles — Disallow the use of the `!important` style.
+    //   縛る対象 : src/complexity/noImportantStyles/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/complexity/noImportantStyles を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正 unsafe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-important-styles/
+    {
+      "includes": ["**/src/complexity/noImportantStyles/default/**"],
+      "linter": { "enabled": true, "rules": { "complexity": { "noImportantStyles": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 16 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noInvalidDirectionInLinearGradient — Disallow non-standard direction values for linear gradient functions.
+    //   縛る対象 : src/correctness/noInvalidDirectionInLinearGradient/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noInvalidDirectionInLinearGradient を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-invalid-direction-in-linear-gradient/
+    {
+      "includes": ["**/src/correctness/noInvalidDirectionInLinearGradient/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noInvalidDirectionInLinearGradient": "error" } } }
+    },
+
+    // noInvalidGridAreas — Disallows invalid named grid areas in CSS Grid Layouts.
+    //   縛る対象 : src/correctness/noInvalidGridAreas/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/correctness/noInvalidGridAreas を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-invalid-grid-areas/
+    {
+      "includes": ["**/src/correctness/noInvalidGridAreas/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noInvalidGridAreas": "error" } } }
+    },
+
+    // noInvalidPositionAtImportRule — Disallow the use of `@import` at-rules in invalid positions.
+    //   縛る対象 : src/correctness/noInvalidPositionAtImportRule/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noInvalidPositionAtImportRule を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-invalid-position-at-import-rule/
+    {
+      "includes": ["**/src/correctness/noInvalidPositionAtImportRule/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noInvalidPositionAtImportRule": "error" } } }
+    },
+
+    // noMissingVarFunction — Disallow missing var function for css variables.
+    //   縛る対象 : src/correctness/noMissingVarFunction/default/ 配下 (6 ケース / 6 ファイル)
+    //   有効化   : lint/correctness/noMissingVarFunction を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-missing-var-function/
+    {
+      "includes": ["**/src/correctness/noMissingVarFunction/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noMissingVarFunction": "error" } } }
+    },
+
+    // noUnknownFunction — Disallow unknown CSS value functions.
+    //   縛る対象 : src/correctness/noUnknownFunction/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noUnknownFunction を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-function/
+    {
+      "includes": ["**/src/correctness/noUnknownFunction/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownFunction": "error" } } }
+    },
+
+    // noUnknownFunction — Disallow unknown CSS value functions.
+    //   縛る対象 : src/correctness/noUnknownFunction/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noUnknownFunction を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-function/
+    {
+      "includes": ["**/src/correctness/noUnknownFunction/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": { "noUnknownFunction": { "level": "error", "options": { "ignore": ["custom-function"] } } }
+        }
+      }
+    },
+
+    // noUnknownMediaFeatureName — Disallow unknown media feature names.
+    //   縛る対象 : src/correctness/noUnknownMediaFeatureName/default/ 配下 (6 ケース / 6 ファイル)
+    //   有効化   : lint/correctness/noUnknownMediaFeatureName を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-media-feature-name/
+    {
+      "includes": ["**/src/correctness/noUnknownMediaFeatureName/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownMediaFeatureName": "error" } } }
+    },
+
+    // noUnknownProperty — Disallow unknown properties.
+    //   縛る対象 : src/correctness/noUnknownProperty/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/correctness/noUnknownProperty を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-property/
+    {
+      "includes": ["**/src/correctness/noUnknownProperty/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownProperty": "error" } } }
+    },
+
+    // noUnknownProperty — Disallow unknown properties.
+    //   縛る対象 : src/correctness/noUnknownProperty/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noUnknownProperty を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-property/
+    {
+      "includes": ["**/src/correctness/noUnknownProperty/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": { "noUnknownProperty": { "level": "error", "options": { "ignore": ["custom-property"] } } }
+        }
+      }
+    },
+
+    // noUnknownPseudoClass — Disallow unknown pseudo-class selectors.
+    //   縛る対象 : src/correctness/noUnknownPseudoClass/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/correctness/noUnknownPseudoClass を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-pseudo-class/
+    {
+      "includes": ["**/src/correctness/noUnknownPseudoClass/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownPseudoClass": "error" } } }
+    },
+
+    // noUnknownPseudoClass — Disallow unknown pseudo-class selectors.
+    //   縛る対象 : src/correctness/noUnknownPseudoClass/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noUnknownPseudoClass を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-pseudo-class/
+    {
+      "includes": ["**/src/correctness/noUnknownPseudoClass/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownPseudoClass": { "level": "error", "options": { "ignore": ["custom-pseudo-class"] } }
+          }
+        }
+      }
+    },
+
+    // noUnknownPseudoElement — Disallow unknown pseudo-element selectors.
+    //   縛る対象 : src/correctness/noUnknownPseudoElement/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/correctness/noUnknownPseudoElement を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-pseudo-element/
+    {
+      "includes": ["**/src/correctness/noUnknownPseudoElement/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownPseudoElement": "error" } } }
+    },
+
+    // noUnknownPseudoElement — Disallow unknown pseudo-element selectors.
+    //   縛る対象 : src/correctness/noUnknownPseudoElement/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noUnknownPseudoElement を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-pseudo-element/
+    {
+      "includes": ["**/src/correctness/noUnknownPseudoElement/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownPseudoElement": { "level": "error", "options": { "ignore": ["custom-pseudo-element"] } }
+          }
+        }
+      }
+    },
+
+    // noUnknownTypeSelector — Disallow unknown type selectors.
+    //   縛る対象 : src/correctness/noUnknownTypeSelector/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/correctness/noUnknownTypeSelector を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-type-selector/
+    {
+      "includes": ["**/src/correctness/noUnknownTypeSelector/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownTypeSelector": "error" } } }
+    },
+
+    // noUnknownUnit — Disallow unknown CSS units.
+    //   縛る対象 : src/correctness/noUnknownUnit/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/correctness/noUnknownUnit を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-unit/
+    {
+      "includes": ["**/src/correctness/noUnknownUnit/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnknownUnit": "error" } } }
+    },
+
+    // noUnmatchableAnbSelector — Disallow unmatchable An+B selectors.
+    //   縛る対象 : src/correctness/noUnmatchableAnbSelector/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/correctness/noUnmatchableAnbSelector を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unmatchable-anb-selector/
+    {
+      "includes": ["**/src/correctness/noUnmatchableAnbSelector/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnmatchableAnbSelector": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // nursery — override 13 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDuplicateSelectors — Disallow duplicate selectors.
+    //   縛る対象 : src/nursery/noDuplicateSelectors/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/nursery/noDuplicateSelectors を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-selectors/
+    {
+      "includes": ["**/src/nursery/noDuplicateSelectors/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noDuplicateSelectors": "error" } } }
+    },
+
+    // noExcessiveSelectorClasses — Limit the number of classes in a selector.
+    //   縛る対象 : src/nursery/noExcessiveSelectorClasses/options-1/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noExcessiveSelectorClasses を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-excessive-selector-classes/
+    {
+      "includes": ["**/src/nursery/noExcessiveSelectorClasses/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": { "noExcessiveSelectorClasses": { "level": "error", "options": { "maxClasses": 1 } } }
+        }
+      }
+    },
+
+    // noInvalidPropertyInitValue — Checks that the `initial-value` of an `@property` rule follows the value format declared by its `syntax`.
+    //   縛る対象 : src/nursery/noInvalidPropertyInitValue/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noInvalidPropertyInitValue を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-invalid-property-init-value/
+    {
+      "includes": ["**/src/nursery/noInvalidPropertyInitValue/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noInvalidPropertyInitValue": "error" } } }
+    },
+
+    // noUnusedClasses — Reports CSS class selectors that are never referenced in any JSX or HTML file.
+    //   縛る対象 : src/nursery/noUnusedClasses/default/ 配下 (1 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/noUnusedClasses を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン project
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unused-classes/
+    {
+      "includes": ["**/src/nursery/noUnusedClasses/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noUnusedClasses": "error" } } }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useBaseline": "error" } } }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "nursery": { "useBaseline": { "level": "error", "options": { "available": "newly" } } } }
+      }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": { "useBaseline": { "level": "error", "options": { "allowProperties": ["backdrop-filter"] } } }
+        }
+      }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-3/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-3/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": { "useBaseline": { "level": "error", "options": { "allowAtRules": ["view-transition"] } } }
+        }
+      }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-4/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-4/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "nursery": { "useBaseline": { "level": "error", "options": { "allowFunctions": ["abs"] } } } }
+      }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-5/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-5/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useBaseline": { "level": "error", "options": { "allowMediaConditions": ["inverted-colors"] } }
+          }
+        }
+      }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-6/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-6/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useBaseline": { "level": "error", "options": { "allowPropertyValues": { "clip-path": ["fill-box"] } } }
+          }
+        }
+      }
+    },
+
+    // useBaseline — Disallow CSS properties, values, at-rules, functions, and selectors that are not part of the configured Baseline.
+    //   縛る対象 : src/nursery/useBaseline/options-7/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useBaseline を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-baseline/
+    {
+      "includes": ["**/src/nursery/useBaseline/options-7/**"],
+      "linter": {
+        "enabled": true,
+        "rules": { "nursery": { "useBaseline": { "level": "error", "options": { "allowSelectors": ["has"] } } } }
+      }
+    },
+
+    // useNamedLayer — Disallow anonymous cascade layers.
+    //   縛る対象 : src/nursery/useNamedLayer/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/nursery/useNamedLayer を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-named-layer/
+    {
+      "includes": ["**/src/nursery/useNamedLayer/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useNamedLayer": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // source — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // useSortedProperties — Enforce ordering of CSS properties and nested rules.
+    //   縛る対象 : src/source/useSortedProperties/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : assist/source/useSortedProperties を "on" にする
+    //   ルール情報: assist アクション ・ recommended ではない ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/assist/actions/use-sorted-properties/
+    {
+      "includes": ["**/src/source/useSortedProperties/default/**"],
+      "assist": { "enabled": true, "actions": { "source": { "useSortedProperties": "on" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // style — override 3 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDescendingSpecificity — Disallow a lower specificity selector from coming after a higher specificity selector.
+    //   縛る対象 : src/style/noDescendingSpecificity/default/ 配下 (4 ケース / 4 ファイル)
+    //   有効化   : lint/style/noDescendingSpecificity を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-descending-specificity/
+    {
+      "includes": ["**/src/style/noDescendingSpecificity/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noDescendingSpecificity": "error" } } }
+    },
+
+    // noHexColors — Disallow hex colors.
+    //   縛る対象 : src/style/noHexColors/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/style/noHexColors を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-hex-colors/
+    {
+      "includes": ["**/src/style/noHexColors/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noHexColors": "error" } } }
+    },
+
+    // noValueAtRule — Disallow use of `@value` rule in CSS modules.
+    //   縛る対象 : src/style/noValueAtRule/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/style/noValueAtRule を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-value-at-rule/
+    {
+      "includes": ["**/src/style/noValueAtRule/default/**"],
+      "linter": { "enabled": true, "rules": { "style": { "noValueAtRule": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // suspicious — override 12 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noDeprecatedMediaType — Disallow deprecated media types.
+    //   縛る対象 : src/suspicious/noDeprecatedMediaType/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noDeprecatedMediaType を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-deprecated-media-type/
+    {
+      "includes": ["**/src/suspicious/noDeprecatedMediaType/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDeprecatedMediaType": "error" } } }
+    },
+
+    // noDeprecatedMediaType — Disallow deprecated media types.
+    //   縛る対象 : src/suspicious/noDeprecatedMediaType/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDeprecatedMediaType を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-deprecated-media-type/
+    {
+      "includes": ["**/src/suspicious/noDeprecatedMediaType/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": { "noDeprecatedMediaType": { "level": "error", "options": { "allow": ["tv", "speech"] } } }
+        }
+      }
+    },
+
+    // noDuplicateAtImportRules — Disallow duplicate `@import` rules.
+    //   縛る対象 : src/suspicious/noDuplicateAtImportRules/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateAtImportRules を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-at-import-rules/
+    {
+      "includes": ["**/src/suspicious/noDuplicateAtImportRules/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateAtImportRules": "error" } } }
+    },
+
+    // noDuplicateCustomProperties — Disallow duplicate custom properties within declaration blocks.
+    //   縛る対象 : src/suspicious/noDuplicateCustomProperties/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateCustomProperties を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-custom-properties/
+    {
+      "includes": ["**/src/suspicious/noDuplicateCustomProperties/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateCustomProperties": "error" } } }
+    },
+
+    // noDuplicateFontNames — Disallow duplicate names within font families.
+    //   縛る対象 : src/suspicious/noDuplicateFontNames/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateFontNames を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-font-names/
+    {
+      "includes": ["**/src/suspicious/noDuplicateFontNames/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateFontNames": "error" } } }
+    },
+
+    // noDuplicateProperties — Disallow duplicate properties within declaration blocks.
+    //   縛る対象 : src/suspicious/noDuplicateProperties/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateProperties を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-properties/
+    {
+      "includes": ["**/src/suspicious/noDuplicateProperties/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateProperties": "error" } } }
+    },
+
+    // noDuplicateSelectorsKeyframeBlock — Disallow duplicate selectors within keyframe blocks.
+    //   縛る対象 : src/suspicious/noDuplicateSelectorsKeyframeBlock/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noDuplicateSelectorsKeyframeBlock を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-duplicate-selectors-keyframe-block/
+    {
+      "includes": ["**/src/suspicious/noDuplicateSelectorsKeyframeBlock/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noDuplicateSelectorsKeyframeBlock": "error" } } }
+    },
+
+    // noEmptyBlock — Disallow CSS empty blocks.
+    //   縛る対象 : src/suspicious/noEmptyBlock/default/ 配下 (3 ケース / 3 ファイル)
+    //   有効化   : lint/suspicious/noEmptyBlock を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-empty-block/
+    {
+      "includes": ["**/src/suspicious/noEmptyBlock/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noEmptyBlock": "error" } } }
+    },
+
+    // noImportantInKeyframe — Disallow invalid `!important` within keyframe declarations
+    //   縛る対象 : src/suspicious/noImportantInKeyframe/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noImportantInKeyframe を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-important-in-keyframe/
+    {
+      "includes": ["**/src/suspicious/noImportantInKeyframe/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noImportantInKeyframe": "error" } } }
+    },
+
+    // noShorthandPropertyOverrides — Disallow shorthand properties that override related longhand properties.
+    //   縛る対象 : src/suspicious/noShorthandPropertyOverrides/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noShorthandPropertyOverrides を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-shorthand-property-overrides/
+    {
+      "includes": ["**/src/suspicious/noShorthandPropertyOverrides/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noShorthandPropertyOverrides": "error" } } }
+    },
+
+    // noUnknownAtRules — Disallow unknown at-rules.
+    //   縛る対象 : src/suspicious/noUnknownAtRules/default/ 配下 (2 ケース / 2 ファイル)
+    //   有効化   : lint/suspicious/noUnknownAtRules を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-at-rules/
+    {
+      "includes": ["**/src/suspicious/noUnknownAtRules/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noUnknownAtRules": "error" } } }
+    },
+
+    // noUnknownAtRules — Disallow unknown at-rules.
+    //   縛る対象 : src/suspicious/noUnknownAtRules/options-1/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noUnknownAtRules を "error" にする
+    //   ルール情報: 既定の重大度 error ・ recommended ・ 自動修正なし
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unknown-at-rules/
+    {
+      "includes": ["**/src/suspicious/noUnknownAtRules/options-1/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noUnknownAtRules": { "level": "error", "options": { "ignore": ["custom-at-rule", "my-custom-rule"] } }
+          }
+        }
+      }
+    }
+
+  ]
+}

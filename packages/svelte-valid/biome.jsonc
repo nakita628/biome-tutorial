@@ -1,0 +1,162 @@
+/**
+ * @biome-tutorial/svelte-valid の Biome 設定
+ * tools/generate.mjs が生成しています。直接編集しないでください。
+ *
+ * ■ このパッケージが保証すること
+ *     biome check がかならず成功する (診断が 1 件も出ない)
+ *
+ * ■ 何を有効にしているか
+ *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
+ *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
+ *     - 有効化しているルール: 5 種類 / override: 6 件
+ *     - 検証しているケース  : 6 件 (6 ファイル)
+ *
+ * ■ 何を縛っているか
+ *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
+ *     1 ディレクトリ = 1 ルールなので、「そのルールから見て問題のないコード」だけを集められます。
+ *
+ * ■ 内訳 (グループごとの override 件数)
+ *     correctness    1 件
+ *     nursery        4 件
+ *     suspicious     1 件
+ */
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+
+  // このファイルはプロジェクトのルートではなく、ルートの biome.jsonc を継承する。
+  "root": false,
+  "extends": "//",
+
+  "linter": {
+    "rules": {
+      // 既定ではどのルールも有効にしない。ここから下の overrides で 1 つずつ有効化する。
+      "preset": "none",
+
+      // ここから下は「打ち消し」の設定です。
+      // ルートの biome.jsonc で linter.domains の project / types を "all" にしているのは、
+      // プロジェクトスキャナと型推論という *機能* を立ち上げるためです
+      // (overrides でルールを有効にしただけでは、これらの機能は動きません)。
+      // ただしそのままだと該当ドメインのルールが全 fixture に混入してしまうため、
+      // ここで明示的に "off" にして黙らせています。
+      // 明示的な "off" は domains の "all" より優先され、さらに overrides の "error" が最優先です。
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+    }
+  },
+
+  // ここから下が「どのディレクトリでどのルールを有効にするか」の一覧です。
+  "overrides": [
+    // ══════════════════════════════════════════════════════════════════════════
+    // correctness — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noUnusedLabels — Disallow unused labels.
+    //   縛る対象 : src/correctness/noUnusedLabels/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/correctness/noUnusedLabels を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正 safe
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-unused-labels/
+    {
+      "includes": ["**/src/correctness/noUnusedLabels/default/**"],
+      "linter": { "enabled": true, "rules": { "correctness": { "noUnusedLabels": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // nursery — override 4 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noSvelteLegacyConst — Disallow legacy Svelte `{@const}` tags.
+    //   縛る対象 : src/nursery/noSvelteLegacyConst/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noSvelteLegacyConst を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン svelte
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-svelte-legacy-const/
+    {
+      "includes": ["**/src/nursery/noSvelteLegacyConst/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noSvelteLegacyConst": "error" } } }
+    },
+
+    // noSvelteUnnecessaryStateWrap — Disallow unnecessary `$state` wrapping of reactive classes.
+    //   縛る対象 : src/nursery/noSvelteUnnecessaryStateWrap/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noSvelteUnnecessaryStateWrap を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン svelte
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-svelte-unnecessary-state-wrap/
+    {
+      "includes": ["**/src/nursery/noSvelteUnnecessaryStateWrap/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "noSvelteUnnecessaryStateWrap": "error" } } }
+    },
+
+    // noSvelteUnnecessaryStateWrap — Disallow unnecessary `$state` wrapping of reactive classes.
+    //   縛る対象 : src/nursery/noSvelteUnnecessaryStateWrap/options-2/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/noSvelteUnnecessaryStateWrap を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正 unsafe ・ ドメイン svelte
+    //   オプション: 既定ではなく下の "options" の設定で検証する
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-svelte-unnecessary-state-wrap/
+    {
+      "includes": ["**/src/nursery/noSvelteUnnecessaryStateWrap/options-2/**"],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noSvelteUnnecessaryStateWrap": { "level": "error", "options": { "additionalReactiveClasses": ["MyReactiveStore"] } }
+          }
+        }
+      }
+    },
+
+    // useSvelteRequireEachKey — Require keyed `{#each}` blocks in Svelte templates.
+    //   縛る対象 : src/nursery/useSvelteRequireEachKey/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/nursery/useSvelteRequireEachKey を "error" にする
+    //   ルール情報: 既定の重大度 info ・ recommended ではない ・ 自動修正なし ・ ドメイン svelte
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-svelte-require-each-key/
+    {
+      "includes": ["**/src/nursery/useSvelteRequireEachKey/default/**"],
+      "linter": { "enabled": true, "rules": { "nursery": { "useSvelteRequireEachKey": "error" } } }
+    },
+
+    // ══════════════════════════════════════════════════════════════════════════
+    // suspicious — override 1 件
+    // ══════════════════════════════════════════════════════════════════════════
+    // noConfusingLabels — Disallow labeled statements that are not loops.
+    //   縛る対象 : src/suspicious/noConfusingLabels/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/noConfusingLabels を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正なし
+    //   ドキュメント: https://biomejs.dev/linter/rules/no-confusing-labels/
+    {
+      "includes": ["**/src/suspicious/noConfusingLabels/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "noConfusingLabels": "error" } } }
+    }
+
+  ]
+}
