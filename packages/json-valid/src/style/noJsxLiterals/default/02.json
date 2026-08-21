@@ -1,0 +1,5 @@
+{
+  "options": {
+    "allowedStrings": ["Hello", "&nbsp;", "·"]
+  }
+}

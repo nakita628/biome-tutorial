@@ -1,0 +1,4 @@
+@property --global-value {}
+a {
+  color: var(--global-value);
+}

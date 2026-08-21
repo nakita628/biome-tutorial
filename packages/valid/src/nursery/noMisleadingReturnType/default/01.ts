@@ -1,0 +1,1 @@
+function getStatus() { return "loading"; }

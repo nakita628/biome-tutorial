@@ -1,0 +1,1 @@
+typeof bar === typeof qux;

@@ -1,0 +1,3 @@
+<div role="img" aria-label="That cat is so cute">
+  <p>&#x1F408; &#x1F602;</p>
+</div>

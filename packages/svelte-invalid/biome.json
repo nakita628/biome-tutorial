@@ -1,0 +1,46 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/nursery/noSvelteLegacyConst/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noSvelteLegacyConst": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noSvelteUnnecessaryStateWrap/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noSvelteUnnecessaryStateWrap": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useSvelteRequireEachKey/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useSvelteRequireEachKey": "error"
+          }
+        }
+      }
+    }
+  ]
+}

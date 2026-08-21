@@ -1,0 +1,10 @@
+{
+    "options": {
+        "paths": {
+            "services-deprecated": {
+                "message": "Use services instead."
+            },
+	            "constants": "This file will be deleted soon."
+        }
+    }
+}

@@ -1,0 +1,5 @@
+@property --palette {
+  syntax: "<color>#";
+  inherits: false;
+  initial-value: red blue;
+}

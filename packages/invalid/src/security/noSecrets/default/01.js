@@ -1,0 +1,1 @@
+const secret = "AKIA1234567890EXAMPLE";

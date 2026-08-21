@@ -1,0 +1,11 @@
+query user {
+  user {
+    id
+  }
+}
+
+query me {
+  me {
+    id
+  }
+}

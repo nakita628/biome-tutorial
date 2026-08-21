@@ -1,0 +1,7 @@
+{
+  "options": {
+    "allowPropertyValues": {
+      "clip-path": ["fill-box"]
+    }
+  }
+}

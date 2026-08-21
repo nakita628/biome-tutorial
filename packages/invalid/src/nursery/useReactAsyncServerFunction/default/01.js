@@ -1,0 +1,4 @@
+function serverFunction() {
+  'use server';
+  // ...
+}

@@ -1,0 +1,9 @@
+query Foo {
+  id
+}
+
+mutation ($name: String!) {
+  createUser {
+    id
+  }
+}

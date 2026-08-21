@@ -1,0 +1,1 @@
+const objIsEmpty = someObj === {};

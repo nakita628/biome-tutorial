@@ -1,0 +1,3 @@
+describe("suite", () => {
+    test("foo", () => {});
+});

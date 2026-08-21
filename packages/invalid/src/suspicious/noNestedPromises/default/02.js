@@ -1,0 +1,1 @@
+doThing().then(() => b.catch())

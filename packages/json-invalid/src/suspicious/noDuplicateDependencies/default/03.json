@@ -1,0 +1,8 @@
+{
+    "dependencies": {
+        "foo": "1.0.0"
+    },
+    "devDependencies": {
+        "foo": "1.0.0"
+    }
+}

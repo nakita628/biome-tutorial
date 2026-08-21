@@ -1,0 +1,1 @@
+if (array.find(predicate)) {}

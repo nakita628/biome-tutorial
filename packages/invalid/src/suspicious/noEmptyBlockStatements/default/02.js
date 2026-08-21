@@ -1,0 +1,5 @@
+try {
+    doSomething();
+} catch(ex) {
+
+}

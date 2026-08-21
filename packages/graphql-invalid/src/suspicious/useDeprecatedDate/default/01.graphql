@@ -1,0 +1,5 @@
+query {
+  member @deprecated(reason: "Use `members` instead") {
+    id
+  }
+}

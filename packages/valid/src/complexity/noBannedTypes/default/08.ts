@@ -1,0 +1,1 @@
+type notNull<T> = T & {};

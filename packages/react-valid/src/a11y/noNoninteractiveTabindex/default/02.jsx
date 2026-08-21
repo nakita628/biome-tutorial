@@ -1,0 +1,1 @@
+<MyButton tabIndex={0} />

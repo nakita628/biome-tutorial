@@ -1,0 +1,1 @@
+'something'.match(/thing/);

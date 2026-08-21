@@ -1,0 +1,16 @@
+{
+    "options": {
+        "paths": {
+            "lodash": "Using lodash is not encouraged",
+            "underscore": "Using underscore is not encouraged",
+            "import-foo": {
+                "importNames": ["Bar"],
+                "message": "Please use Bar from /import-bar/baz/ instead."
+            },
+            "import-bar": {
+              "allowImportNames": ["Bar"],
+              "message": "Please use only Bar from import-bar."
+            }
+        }
+    }
+}

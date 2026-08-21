@@ -1,0 +1,33 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/nursery/useAstroClientOnlyDirectiveValue/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useAstroClientOnlyDirectiveValue": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useScopedStyles/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useScopedStyles": "error"
+          }
+        }
+      }
+    }
+  ]
+}

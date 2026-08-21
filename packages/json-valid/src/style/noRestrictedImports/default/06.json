@@ -1,0 +1,10 @@
+{
+    "options": {
+        "paths": {
+            "import-foo": {
+                "importNames": ["Bar"],
+                "message": "Please use Bar from /import-bar/baz/ instead."
+            }
+        }
+    }
+}

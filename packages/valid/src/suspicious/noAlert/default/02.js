@@ -1,0 +1,1 @@
+customConfirm("Are you sure?");

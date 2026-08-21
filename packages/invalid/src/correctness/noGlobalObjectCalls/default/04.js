@@ -1,0 +1,1 @@
+var newJSON = new JSON();

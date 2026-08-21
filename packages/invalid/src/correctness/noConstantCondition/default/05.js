@@ -1,0 +1,3 @@
+while (typeof x) {
+    doSomethingForever();
+}

@@ -1,0 +1,5 @@
+{
+  "options": {
+    "allowAtRules": ["view-transition"]
+  }
+}

@@ -1,0 +1,1 @@
+<FormattedMessage id="static" />

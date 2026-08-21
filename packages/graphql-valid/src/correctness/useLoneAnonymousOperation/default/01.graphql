@@ -1,0 +1,7 @@
+query A {
+  fieldA
+}
+
+query B {
+  fieldB
+}

@@ -1,0 +1,6 @@
+var {a = {}} = foo;
+var {a, b = {}} = foo;
+var {a = []} = foo;
+function foo({a = {}}) {}
+function foo({a = []}) {}
+var [a] = foo;

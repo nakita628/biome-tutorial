@@ -1,0 +1,6 @@
+.parent {
+  --foo: red;
+  .child {
+    color: --foo;
+  }
+}

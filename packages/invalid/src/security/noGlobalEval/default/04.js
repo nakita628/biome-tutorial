@@ -1,0 +1,1 @@
+const aliasedEval = eval;

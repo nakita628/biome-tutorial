@@ -1,0 +1,5 @@
+const MyComponent = () => {};
+namespace MyComponent {
+    export type Props = { id: string };
+}
+export default MyComponent;

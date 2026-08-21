@@ -1,0 +1,215 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/correctness/noDuplicateArgumentNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noDuplicateArgumentNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noDuplicateEnumValueNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noDuplicateEnumValueNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noDuplicateInputFieldNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noDuplicateInputFieldNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noDuplicateVariableNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noDuplicateVariableNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useGraphqlNamedOperations/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useGraphqlNamedOperations": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useLoneAnonymousOperation/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useLoneAnonymousOperation": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noDuplicateFieldDefinitionNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noDuplicateFieldDefinitionNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noRootType/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noRootType": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useConsistentGraphqlDescriptions/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useConsistentGraphqlDescriptions": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useDeprecatedReason/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useDeprecatedReason": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useGraphqlNamingConvention/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useGraphqlNamingConvention": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useInputName/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useInputName": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useLoneExecutableDefinition/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useLoneExecutableDefinition": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateFields/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateFields": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateGraphqlOperationName/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateGraphqlOperationName": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/useDeprecatedDate/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "useDeprecatedDate": "error"
+          }
+        }
+      }
+    }
+  ]
+}

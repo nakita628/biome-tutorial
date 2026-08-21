@@ -1,0 +1,10 @@
+{
+    "noRestrictedImports": {
+        "options": {
+            "paths": {
+                "lodash": "Using lodash is not encouraged",
+                "underscore": "Using underscore is not encouraged"
+            }
+        }
+    }
+}

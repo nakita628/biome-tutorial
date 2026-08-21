@@ -1,0 +1,3 @@
+ class TsBioo {
+   private unusedMethod() {}
+ }

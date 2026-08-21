@@ -1,0 +1,1 @@
+let Component = ({}) => <div />;

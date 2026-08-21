@@ -1,0 +1,1 @@
+const nonSecret = "hello world";

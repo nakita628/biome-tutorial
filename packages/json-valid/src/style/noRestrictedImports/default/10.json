@@ -1,0 +1,9 @@
+{
+    "options": {
+       "patterns": [{
+            "group": ["import-foo/*"],
+            "importNamePattern": "[xyz]",
+            "invertImportNamePattern": true
+        }]
+    }
+}

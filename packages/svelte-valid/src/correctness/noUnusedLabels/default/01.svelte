@@ -1,0 +1,3 @@
+<script>
+$: { /* reactive block */ }
+</script>

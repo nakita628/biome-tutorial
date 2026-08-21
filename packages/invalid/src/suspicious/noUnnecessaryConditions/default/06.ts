@@ -1,0 +1,2 @@
+const items = [];
+if (!items) {}

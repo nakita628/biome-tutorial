@@ -1,0 +1,5 @@
+{
+    "options": {
+        "ignorePrimitives": { "string": true }
+    }
+}

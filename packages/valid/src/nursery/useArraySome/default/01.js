@@ -1,0 +1,1 @@
+array.some(predicate);

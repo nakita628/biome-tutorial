@@ -1,0 +1,1 @@
+await db.delete(users);

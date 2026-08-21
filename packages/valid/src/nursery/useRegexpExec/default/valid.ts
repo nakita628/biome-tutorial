@@ -1,0 +1,1 @@
+/thing/.exec('something');

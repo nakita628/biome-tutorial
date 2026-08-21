@@ -1,0 +1,1 @@
+bar instanceof obj?.foo;

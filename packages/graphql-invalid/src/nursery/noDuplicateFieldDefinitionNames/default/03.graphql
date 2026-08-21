@@ -1,0 +1,4 @@
+input SomeObject {
+  foo: String
+  foo: String
+}

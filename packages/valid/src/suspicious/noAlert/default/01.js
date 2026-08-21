@@ -1,0 +1,1 @@
+customAlert("Something happened!");

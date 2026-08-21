@@ -1,0 +1,2 @@
+const values: {}[] = [{}];
+values.join(",");

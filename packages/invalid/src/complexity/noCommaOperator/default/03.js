@@ -1,0 +1,3 @@
+// Use a semicolon instead.
+let a, b;
+a = 1, b = 2;

@@ -1,0 +1,72 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/correctness/noUnusedLabels/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnusedLabels": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noSvelteLegacyConst/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noSvelteLegacyConst": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noSvelteUnnecessaryStateWrap/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noSvelteUnnecessaryStateWrap": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useSvelteRequireEachKey/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useSvelteRequireEachKey": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noConfusingLabels/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noConfusingLabels": "error"
+          }
+        }
+      }
+    }
+  ]
+}

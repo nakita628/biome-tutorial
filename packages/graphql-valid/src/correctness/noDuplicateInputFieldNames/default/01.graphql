@@ -1,0 +1,3 @@
+query {
+  field(arg: { f1: "value", f2: "value" })
+}

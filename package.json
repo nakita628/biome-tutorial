@@ -1,0 +1,9 @@
+{
+  "name": "biome-tutorial",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@11.7.0",
+  "devDependencies": {
+    "@biomejs/biome": "2.5.9"
+  }
+}

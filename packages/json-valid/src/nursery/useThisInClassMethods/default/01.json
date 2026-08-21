@@ -1,0 +1,5 @@
+{
+    "options": {
+        "ignoreMethods": ["render", "#serialize"]
+    }
+}

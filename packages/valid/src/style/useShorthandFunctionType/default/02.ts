@@ -1,0 +1,3 @@
+function foo(example: () => number): number {
+  return bar();
+}

@@ -1,0 +1,7 @@
+:root {
+  --red: #FF0000
+}
+
+p {
+  background-color: var(--red);
+}

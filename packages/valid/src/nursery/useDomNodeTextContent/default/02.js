@@ -1,0 +1,1 @@
+const {textContent} = node;

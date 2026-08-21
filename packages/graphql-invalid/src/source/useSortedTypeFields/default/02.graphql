@@ -1,0 +1,4 @@
+interface Node {
+  name: String
+  id: ID
+}

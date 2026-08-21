@@ -1,0 +1,1 @@
+const isEmptySet = !foo.size;

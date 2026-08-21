@@ -1,0 +1,5 @@
+let foo = 'bar';
+let foo = 'bar' as const;
+let foo: 'bar' = 'bar' as const;
+let bar = 'bar' as string;
+let foo = { bar: 'baz' };

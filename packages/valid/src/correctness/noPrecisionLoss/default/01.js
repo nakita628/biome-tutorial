@@ -1,0 +1,7 @@
+const x = 12345
+const x = 123.456
+const x = 123e34
+const x = 12300000000000000000000000
+const x = 0x1FFFFFFFFFFFFF
+const x = 9007199254740991
+const x = 9007_1992547409_91

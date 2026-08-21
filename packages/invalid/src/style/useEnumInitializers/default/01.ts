@@ -1,0 +1,3 @@
+enum Version {
+    V1,
+}

@@ -1,0 +1,1 @@
+type Example = () => string;

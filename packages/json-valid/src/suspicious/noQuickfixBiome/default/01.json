@@ -1,0 +1,5 @@
+{
+    "options": {
+        "additionalPaths": [".myEditor/file.json"]
+    }
+}

@@ -1,0 +1,4 @@
+enum B {
+  TEST
+  TesT
+}

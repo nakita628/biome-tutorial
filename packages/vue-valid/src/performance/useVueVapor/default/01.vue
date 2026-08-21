@@ -1,0 +1,2 @@
+<script setup vapor>
+</script>

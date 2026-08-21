@@ -1,0 +1,5 @@
+{
+    "options": {
+        "allowedEnvVars": ["MY_APP_.*", "ACME_TOKEN"]
+    }
+}

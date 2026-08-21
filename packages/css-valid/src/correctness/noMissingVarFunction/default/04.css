@@ -1,0 +1,7 @@
+*:root {
+--global: red;
+}
+
+a {
+    color: var(--global);
+}

@@ -1,0 +1,1 @@
+injectGlobal`body{ color: red; }`

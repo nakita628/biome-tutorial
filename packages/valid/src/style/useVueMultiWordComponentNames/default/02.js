@@ -1,0 +1,3 @@
+defineComponent({
+  name: "MyComponent"
+});

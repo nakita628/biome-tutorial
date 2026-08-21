@@ -1,0 +1,10 @@
+{
+    "options": {
+        "paths": {
+            "import-bar": {
+              "allowImportNames": ["Bar"]
+            },
+            "restrictPackagePrivate": "all"
+        }
+    }
+}

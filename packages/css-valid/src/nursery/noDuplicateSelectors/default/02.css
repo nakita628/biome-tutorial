@@ -1,0 +1,4 @@
+.foo {}
+@media (min-width: 600px) {
+  .foo {}
+}

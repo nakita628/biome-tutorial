@@ -1,0 +1,6 @@
+{
+    "options": {
+       "maxLines": 2,
+       "skipBlankLines": true
+    }
+}

@@ -1,0 +1,5 @@
+if (condition) {
+    if (anotherCondition) {
+        // ...
+    }
+}

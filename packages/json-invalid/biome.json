@@ -1,0 +1,202 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/complexity/noExcessiveCognitiveComplexity/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "complexity": {
+            "noExcessiveCognitiveComplexity": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUndeclaredDependencies/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUndeclaredDependencies": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noEmptyObjectKeys/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noEmptyObjectKeys": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noExcessiveSelectorClasses/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noExcessiveSelectorClasses": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noTopLevelLiterals/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noTopLevelLiterals": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactCompiler/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactCompiler": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useSortedClasses/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useSortedClasses": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noExcessiveLinesPerFile/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noExcessiveLinesPerFile": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noRootType/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noRootType": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useConsistentMemberAccessibility/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useConsistentMemberAccessibility": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useConsistentObjectDefinitions/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useConsistentObjectDefinitions": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useNumericSeparators/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useNumericSeparators": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noConsole/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noConsole": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateDependencies/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateDependencies": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/useRequiredScripts/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "useRequiredScripts": "error"
+          }
+        }
+      }
+    }
+  ]
+}

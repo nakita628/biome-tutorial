@@ -1,0 +1,1 @@
+type PossibleValues = number | void;

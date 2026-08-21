@@ -1,0 +1,2 @@
+.unused { color: red; }  /* Class "unused" is never referenced */
+.used { color: blue; }

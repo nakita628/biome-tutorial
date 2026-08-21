@@ -1,0 +1,4 @@
+type SomeObject {
+  foo: String
+  foo: String
+}

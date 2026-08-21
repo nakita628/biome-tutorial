@@ -1,0 +1,4 @@
+  new Promise((resolve, reject) => {})
+  new Promise((resolve, reject) => {}, async function unrelated() {})
+  new Foo(async (resolve, reject) => {})
+  new Foo((( (resolve, reject) => {} )))

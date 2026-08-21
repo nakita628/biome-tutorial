@@ -1,0 +1,4 @@
+label: {
+    f();
+    break label;
+}

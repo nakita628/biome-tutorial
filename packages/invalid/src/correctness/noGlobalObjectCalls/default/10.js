@@ -1,0 +1,1 @@
+var newIntl = new Intl();

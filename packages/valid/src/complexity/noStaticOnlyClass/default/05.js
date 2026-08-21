@@ -1,0 +1,9 @@
+let mutableCount = 1;
+
+export function getMutableCount() {
+  return mutableField;
+}
+
+export function incrementCount() {
+  mutableField += 1;
+}

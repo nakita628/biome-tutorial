@@ -1,0 +1,1 @@
+function logSomething(thing: void) {}

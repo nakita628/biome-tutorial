@@ -1,0 +1,7 @@
+query Foo {
+  id
+}
+
+fragment Bar on Baz {
+  id
+}

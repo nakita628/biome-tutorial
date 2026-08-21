@@ -1,0 +1,6 @@
+(obj?.foo)?.();
+obj?.foo();
+(obj?.foo ?? bar)();
+obj?.foo.bar;
+obj.foo?.bar;
+foo?.()?.bar;

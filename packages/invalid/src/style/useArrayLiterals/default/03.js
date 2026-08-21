@@ -1,0 +1,1 @@
+const xs = new Array(0, 1, 2);

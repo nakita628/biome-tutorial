@@ -1,0 +1,6 @@
+enum EnumValue {
+  """
+  this is a description
+  """
+  DEFAULT
+}

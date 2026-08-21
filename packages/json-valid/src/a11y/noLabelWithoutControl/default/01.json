@@ -1,0 +1,7 @@
+{
+    "options": {
+        "inputComponents": ["CustomInput"],
+        "labelAttributes": ["label"],
+        "labelComponents": ["CustomLabel"]
+    }
+}

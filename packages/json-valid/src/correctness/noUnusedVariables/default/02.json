@@ -1,0 +1,9 @@
+{
+  "options": {
+    "ignore": {
+      "*": ["ignored"],
+      "class": ["IgnoredClass"],
+      "function": ["*"]
+    }
+  }
+}

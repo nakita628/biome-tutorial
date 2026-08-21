@@ -1,0 +1,423 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/a11y/useGenericFontNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "a11y": {
+            "useGenericFontNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noInvalidDirectionInLinearGradient/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noInvalidDirectionInLinearGradient": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noInvalidGridAreas/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noInvalidGridAreas": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noInvalidPositionAtImportRule/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noInvalidPositionAtImportRule": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noMissingVarFunction/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noMissingVarFunction": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownFunction/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownFunction": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownMediaFeatureName/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownMediaFeatureName": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownProperty/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownProperty": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownPseudoClass/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownPseudoClass": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownPseudoElement/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownPseudoElement": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownTypeSelector/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownTypeSelector": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnknownUnit/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnknownUnit": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noUnmatchableAnbSelector/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noUnmatchableAnbSelector": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noDuplicateSelectors/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noDuplicateSelectors": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noExcessiveSelectorClasses/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noExcessiveSelectorClasses": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noInvalidPropertyInitValue/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noInvalidPropertyInitValue": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noUnusedClasses/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noUnusedClasses": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useBaseline/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useBaseline": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useNamedLayer/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useNamedLayer": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noDescendingSpecificity/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noDescendingSpecificity": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noHexColors/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noHexColors": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noValueAtRule/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noValueAtRule": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDeprecatedMediaType/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDeprecatedMediaType": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateAtImportRules/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateAtImportRules": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateCustomProperties/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateCustomProperties": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateFontNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateFontNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateProperties/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateProperties": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noDuplicateSelectorsKeyframeBlock/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noDuplicateSelectorsKeyframeBlock": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noEmptyBlock/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noEmptyBlock": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noImportantInKeyframe/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noImportantInKeyframe": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noShorthandPropertyOverrides/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noShorthandPropertyOverrides": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noUnknownAtRules/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noUnknownAtRules": "error"
+          }
+        }
+      }
+    }
+  ]
+}

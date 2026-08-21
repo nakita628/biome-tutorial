@@ -1,0 +1,8 @@
+{
+    "options": {
+        "extensionMappings": {
+            "ts": "js",
+            "tsx": "js"
+        }
+    }
+}

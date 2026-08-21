@@ -1,0 +1,1 @@
+<MyComp :someProp="x" />

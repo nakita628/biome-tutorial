@@ -1,0 +1,410 @@
+{
+  "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
+  "root": false,
+  "extends": "//",
+  "overrides": [
+    {
+      "includes": [
+        "**/src/correctness/noDuplicateAttributes/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noDuplicateAttributes": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noVueDuplicateKeys/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noVueDuplicateKeys": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noVueReservedKeys/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noVueReservedKeys": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noVueReservedProps/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noVueReservedProps": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/noVueVIfWithVFor/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "noVueVIfWithVFor": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueVForKey/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueVForKey": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidTemplateRoot/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidTemplateRoot": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVBind/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVBind": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVCloak/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVCloak": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVElse/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVElse": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVElseIf/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVElseIf": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVHtml/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVHtml": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVIf/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVIf": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVOn/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVOn": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVOnce/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVOnce": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVPre/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVPre": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useVueValidVText/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useVueValidVText": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noVueImportCompilerMacros/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noVueImportCompilerMacros": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noVueVOnNumberValues/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noVueVOnNumberValues": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useScopedStyles/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useScopedStyles": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useVueConsistentDefinePropsDeclaration/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useVueConsistentDefinePropsDeclaration": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useVueNextTickPromise/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useVueNextTickPromise": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useVueValidVFor/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useVueValidVFor": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/performance/useVueVapor/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "performance": {
+            "useVueVapor": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noVueOptionsApi/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noVueOptionsApi": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useVueConsistentVBindStyle/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueConsistentVBindStyle": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useVueConsistentVOnStyle/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueConsistentVOnStyle": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useVueDefineMacrosOrder/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueDefineMacrosOrder": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useVueHyphenatedAttributes/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueHyphenatedAttributes": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useVueMultiWordComponentNames/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueMultiWordComponentNames": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/suspicious/noVueArrowFuncInWatch/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "suspicious": {
+            "noVueArrowFuncInWatch": "error"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+@property --size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1rem;
+}
+
+@property --calculated-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: calc(1px + 2px);
+}

@@ -1,0 +1,1 @@
+let invalid: Array<foo>;
