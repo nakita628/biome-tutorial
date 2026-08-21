@@ -1,4 +1,4 @@
-// The role="presentation" attribute removes the semantic meaning of an element, indicating that it should be ignored by assistive technologies.
-// Therefore, it's acceptable to add event handlers to elements with role="presentation" for visual effects or other purposes,
-// but users relying on assistive technologies may not be able to interact with these elements.
-<div role="presentation" onClick={() => { }}>button</div>
+// Adding a role to element does not add behavior.
+// If not used semantic HTML elements like `button`, developers need to implement the expected behavior for role(like focusability and key press support)
+// See https://www.w3.org/WAI/ARIA/apg/
+<div role="button" onClick={() => { }}>button</div>

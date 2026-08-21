@@ -1,7 +1,4 @@
-// IIFEs are allowed
-(function () {
-  return 1;
-})();
-(() => {
-  return 1;
-})();
+// the outer function returns an inner function that has a `void` return type
+var arrowFn = () => {
+  return (): void => { };
+}

@@ -1,4 +1,3 @@
-class Component {
-    render() {}
-    #serialize() {}
+class A {
+    static foo() {}
 }

@@ -1,1 +1,9 @@
-class Empty {}
+export const version = 42;
+
+export function isProduction() {
+  return process.env.NODE_ENV === 'production';
+}
+
+function logHelloWorld() {
+  console.log('Hello, world!');
+}

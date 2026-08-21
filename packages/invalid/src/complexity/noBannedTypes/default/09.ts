@@ -1,0 +1,1 @@
+const alsoNotAnObj: Object = "foo";

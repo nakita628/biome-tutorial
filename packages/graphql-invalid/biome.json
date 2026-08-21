@@ -2,6 +2,48 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": [
@@ -96,13 +138,40 @@
     },
     {
       "includes": [
-        "**/src/style/noRootType/default/**"
+        "**/src/style/noRootType/options-1/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "style": {
-            "noRootType": "error"
+            "noRootType": {
+              "level": "error",
+              "options": {
+                "disallow": [
+                  "mutation"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noRootType/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noRootType": {
+              "level": "error",
+              "options": {
+                "disallow": [
+                  "subscription"
+                ]
+              }
+            }
           }
         }
       }
@@ -116,6 +185,24 @@
         "rules": {
           "style": {
             "useConsistentGraphqlDescriptions": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useConsistentGraphqlDescriptions/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useConsistentGraphqlDescriptions": {
+              "level": "error",
+              "options": {
+                "style": "inline"
+              }
+            }
           }
         }
       }
@@ -155,6 +242,42 @@
         "rules": {
           "style": {
             "useInputName": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useInputName/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useInputName": {
+              "level": "error",
+              "options": {
+                "checkInputType": "loose"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useInputName/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useInputName": {
+              "level": "error",
+              "options": {
+                "checkInputType": "strict"
+              }
+            }
           }
         }
       }
@@ -207,6 +330,19 @@
         "rules": {
           "suspicious": {
             "useDeprecatedDate": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/source/useSortedSelectionSet/default/**"
+      ],
+      "assist": {
+        "enabled": true,
+        "actions": {
+          "source": {
+            "useSortedSelectionSet": "on"
           }
         }
       }

@@ -1,1 +1,1 @@
-foo ? foo : bar;
+Math.min(height, 50);

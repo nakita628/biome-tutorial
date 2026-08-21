@@ -1,1 +1,3 @@
-<Component title="Hello!" />
+<span>
+  {'Please enter your name'}
+</span>

@@ -1,14 +1,5 @@
-// Composition API and createApp entrypoints
-defineComponent({
-  /* ✓ GOOD */
-  data() {
-    return { message: 'hi' };
-  }
-});
-
+// Vue 3 entrypoint via createApp
 createApp({
-  /* ✓ GOOD */
-  data: function() {
-    return { active: true };
-  }
+  /* ✗ BAD */
+  data: { active: true }
 }).mount('#app');

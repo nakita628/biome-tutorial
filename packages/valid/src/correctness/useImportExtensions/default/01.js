@@ -1,1 +1,1 @@
-import "biome";
+import "./foo";

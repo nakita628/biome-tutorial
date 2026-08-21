@@ -1,4 +1,6 @@
-function nonNegative(n) {
-    DEV: assert(n >= 0);
-    return n;
+LOOP: for (const x of xs) {
+    if (x > 0) {
+        break LOOP;
+    }
+    f(x);
 }

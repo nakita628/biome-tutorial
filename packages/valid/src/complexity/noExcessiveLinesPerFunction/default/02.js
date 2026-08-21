@@ -1,5 +1,4 @@
-function example() {
- const a = 1; // 1
- const b = 2; // 2
- const c = 3; // 3
+ function foo () {
+    const x = 0;
+    const y = 1;
 };

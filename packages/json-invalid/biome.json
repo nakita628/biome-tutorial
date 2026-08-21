@@ -2,33 +2,49 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
-    {
-      "includes": [
-        "**/src/complexity/noExcessiveCognitiveComplexity/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "complexity": {
-            "noExcessiveCognitiveComplexity": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUndeclaredDependencies/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUndeclaredDependencies": "error"
-          }
-        }
-      }
-    },
     {
       "includes": [
         "**/src/nursery/noEmptyObjectKeys/default/**"
@@ -38,19 +54,6 @@
         "rules": {
           "nursery": {
             "noEmptyObjectKeys": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/noExcessiveSelectorClasses/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noExcessiveSelectorClasses": "error"
           }
         }
       }
@@ -70,130 +73,13 @@
     },
     {
       "includes": [
-        "**/src/nursery/useReactCompiler/default/**"
+        "**/src/source/useSortedPackageJson/default/**"
       ],
-      "linter": {
+      "assist": {
         "enabled": true,
-        "rules": {
-          "nursery": {
-            "useReactCompiler": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useSortedClasses/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useSortedClasses": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noExcessiveLinesPerFile/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noExcessiveLinesPerFile": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noRootType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noRootType": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentMemberAccessibility/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentMemberAccessibility": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentObjectDefinitions/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentObjectDefinitions": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useNumericSeparators/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useNumericSeparators": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noConsole/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noConsole": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noDuplicateDependencies/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noDuplicateDependencies": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/useRequiredScripts/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "useRequiredScripts": "error"
+        "actions": {
+          "source": {
+            "useSortedPackageJson": "on"
           }
         }
       }

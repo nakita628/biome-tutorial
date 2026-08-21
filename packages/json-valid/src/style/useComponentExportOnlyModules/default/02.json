@@ -1,5 +1,0 @@
-{
-    "options":{
-        "allowExportNames": ["json", "loader", "headers", "meta", "links", "scripts"]
-    }
-}

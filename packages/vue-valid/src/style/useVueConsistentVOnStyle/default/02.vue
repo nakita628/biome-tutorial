@@ -1,1 +1,1 @@
-<div v-on:click="onClick" />
+<div @click="onClick" />

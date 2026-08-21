@@ -1,0 +1,14 @@
+{
+  "overrides": [
+    {
+       "includes": ["test/**/*"],
+       "linter": {
+         "rules": {
+           "style": {
+             "useFilenamingConvention": "off"
+           }
+         }
+       }
+    }
+  ]
+}

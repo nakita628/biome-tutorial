@@ -1,5 +1,6 @@
 try {
     doSomething();
-} finally {
-    doCleanUp();
+} catch(e) {
+    doSomethingWhenCatch();
+    throw e;
 }

@@ -1,1 +1,1 @@
-<a href="#section">Click me</a>
+<a href="https://example.com">Click me</a>

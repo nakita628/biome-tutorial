@@ -1,2 +1,2 @@
-// A function with a type assertion using `<>`
-var castTyped = <() => string>(() => '');
+// A return value of type string
+var arrowFn = (): string => 'test';

@@ -1,1 +1,1 @@
-<div aria-label="Close" />
+<div onClick={() => {}} />

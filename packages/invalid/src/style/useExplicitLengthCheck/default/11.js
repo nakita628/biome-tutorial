@@ -1,1 +1,1 @@
-const isNotEmpty = foo.length >= 1;
+const isNotEmpty = foo.length != 0;

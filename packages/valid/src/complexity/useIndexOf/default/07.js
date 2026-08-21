@@ -1,4 +1,1 @@
-const index = foo.findIndex(x => {
-    const bar = getBar();
-    return x === bar;
-});
+const index = foo.indexOf('foo');

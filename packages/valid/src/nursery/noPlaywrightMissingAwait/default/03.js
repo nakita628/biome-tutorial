@@ -1,3 +1,3 @@
 test('example', async ({ page }) => {
-    return expect(page.getByRole('button')).toBeVisible();
+    await expect(page.getByRole('button')).toBeVisible();
 });

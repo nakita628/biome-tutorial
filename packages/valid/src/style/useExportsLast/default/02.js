@@ -1,2 +1,2 @@
 const a = 1;
-export { a };
+export const b = 2;

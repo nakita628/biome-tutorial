@@ -1,1 +1,2 @@
-<button onClick={() => console.log("test")}>Submit</button>
+// this rule doesn't apply to user created component
+<MyComponent onClick={() => {}} />

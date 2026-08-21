@@ -1,1 +1,1 @@
-import "./bar/index.js";
+import "../";

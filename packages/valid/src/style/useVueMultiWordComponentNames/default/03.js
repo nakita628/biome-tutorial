@@ -1,1 +1,3 @@
-createApp({ name: "MyApp" }).mount("#app");
+export default {
+  name: "my-component"
+};

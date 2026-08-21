@@ -1,1 +1,1 @@
-<input disabled={undefined} />
+<input disabled={0} />

@@ -1,3 +1,5 @@
-function foo(str) {
-    return /[a-Z]*/g.exec(str)
+const REGEX = /[a-Z]*/;
+
+function foo(someString) {
+    return REGEX.test(someString)
 }

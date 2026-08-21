@@ -1,0 +1,3 @@
+<>
+    <my-button role="img" />
+</>;

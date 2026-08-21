@@ -1,5 +1,0 @@
-{
-  "options": {
-    "order": ["definePage", "defineProps", "defineEmits", "defineModel"]
-  }
-}

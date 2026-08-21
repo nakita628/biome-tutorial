@@ -1,4 +1,2 @@
-for (let i = 0; i < 10;) {
-    doSomething(i);
-    i++;
-}
+let bar = 42;
+bar--;

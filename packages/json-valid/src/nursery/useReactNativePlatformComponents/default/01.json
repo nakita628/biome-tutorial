@@ -1,5 +1,0 @@
-{
-    "options": {
-        "androidPathPatterns": ["**/*.droid.jsx"]
-    }
-}

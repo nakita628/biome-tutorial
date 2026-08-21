@@ -1,3 +1,2 @@
-// Callbacks and standalone expressions are allowed
-setTimeout(function() { console.log("Hello!"); }, 1000);
-foo(() => 1);
+// the outer function returns an inner function that has a `void` return type
+var arrowFn = () => (): void => {};

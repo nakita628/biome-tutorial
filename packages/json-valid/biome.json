@@ -2,254 +2,49 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
-    {
-      "includes": [
-        "**/src/a11y/noAmbiguousAnchorText/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "a11y": {
-            "noAmbiguousAnchorText": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/a11y/noLabelWithoutControl/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "a11y": {
-            "noLabelWithoutControl": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/a11y/useValidAriaRole/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "a11y": {
-            "useValidAriaRole": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/a11y/useValidAutocomplete/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "a11y": {
-            "useValidAutocomplete": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/complexity/noExcessiveLinesPerFunction/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "complexity": {
-            "noExcessiveLinesPerFunction": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/complexity/noForEach/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "complexity": {
-            "noForEach": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/complexity/noImplicitCoercions/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "complexity": {
-            "noImplicitCoercions": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUndeclaredDependencies/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUndeclaredDependencies": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUndeclaredVariables/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUndeclaredVariables": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUnknownFunction/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUnknownFunction": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUnknownProperty/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUnknownProperty": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUnknownPseudoClass/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUnknownPseudoClass": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUnknownPseudoElement/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUnknownPseudoElement": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUnusedFunctionParameters/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUnusedFunctionParameters": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/noUnusedVariables/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "noUnusedVariables": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/useExhaustiveDependencies/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "useExhaustiveDependencies": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/useImportExtensions/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "useImportExtensions": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/useJsxKeyInIterable/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "useJsxKeyInIterable": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/correctness/useUniqueElementIds/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "correctness": {
-            "useUniqueElementIds": "error"
-          }
-        }
-      }
-    },
     {
       "includes": [
         "**/src/nursery/noEmptyObjectKeys/default/**"
@@ -259,71 +54,6 @@
         "rules": {
           "nursery": {
             "noEmptyObjectKeys": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/noExcessiveNestedCallbacks/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noExcessiveNestedCallbacks": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/noExcessiveSelectorClasses/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noExcessiveSelectorClasses": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/noReactNativeRawText/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noReactNativeRawText": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/noSvelteUnnecessaryStateWrap/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noSvelteUnnecessaryStateWrap": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/noTailwindArbitraryValue/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noTailwindArbitraryValue": "error"
           }
         }
       }
@@ -343,344 +73,6 @@
     },
     {
       "includes": [
-        "**/src/nursery/noUntrustedLicenses/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noUntrustedLicenses": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useBaseline/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useBaseline": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useConsistentTestIt/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useConsistentTestIt": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useDomQuerySelector/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useDomQuerySelector": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useExplicitReturnType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useExplicitReturnType": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useNullishCoalescing/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useNullishCoalescing": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useReactCompiler/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useReactCompiler": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useReactFunctionComponentDefinition/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useReactFunctionComponentDefinition": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useReactNativePlatformComponents/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useReactNativePlatformComponents": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/nursery/useThisInClassMethods/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "useThisInClassMethods": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/security/noBlankTarget/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "security": {
-            "noBlankTarget": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/security/noSecrets/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "security": {
-            "noSecrets": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noExcessiveClassesPerFile/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noExcessiveClassesPerFile": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noIncrementDecrement/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noIncrementDecrement": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noJsxLiterals/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noJsxLiterals": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noParameterAssign/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noParameterAssign": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noRestrictedGlobals/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noRestrictedGlobals": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noRestrictedImports/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noRestrictedImports": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/noRootType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "noRootType": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useComponentExportOnlyModules/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useComponentExportOnlyModules": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentArrayType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentArrayType": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentGraphqlDescriptions/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentGraphqlDescriptions": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentMemberAccessibility/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentMemberAccessibility": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentMethodSignatures/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentMethodSignatures": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentObjectDefinitions/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentObjectDefinitions": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useConsistentTypeDefinitions/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useConsistentTypeDefinitions": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
         "**/src/style/useDestructuring/default/**"
       ],
       "linter": {
@@ -694,78 +86,13 @@
     },
     {
       "includes": [
-        "**/src/style/useErrorCause/default/**"
+        "**/src/style/useFilenamingConvention/default/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "style": {
-            "useErrorCause": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useExportType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useExportType": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useImportType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useImportType": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useInputName/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useInputName": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useNumericSeparators/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useNumericSeparators": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useReadonlyClassProperties/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useReadonlyClassProperties": "error"
+            "useFilenamingConvention": "error"
           }
         }
       }
@@ -779,123 +106,6 @@
         "rules": {
           "style": {
             "useSelfClosingElements": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useUnifiedTypeSignatures/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useUnifiedTypeSignatures": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useVueConsistentVBindStyle/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useVueConsistentVBindStyle": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useVueConsistentVOnStyle/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useVueConsistentVOnStyle": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useVueDefineMacrosOrder/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useVueDefineMacrosOrder": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useVueHyphenatedAttributes/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useVueHyphenatedAttributes": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/style/useVueMultiWordComponentNames/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "style": {
-            "useVueMultiWordComponentNames": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noBitwiseOperators/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noBitwiseOperators": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noConfusingLabels/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noConfusingLabels": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noDeprecatedMediaType/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noDeprecatedMediaType": "error"
           }
         }
       }
@@ -928,104 +138,34 @@
     },
     {
       "includes": [
-        "**/src/suspicious/noEmptySource/default/**"
+        "**/src/suspicious/useRequiredScripts/options-1/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "suspicious": {
-            "noEmptySource": "error"
+            "useRequiredScripts": {
+              "level": "error",
+              "options": {
+                "requiredScripts": [
+                  "test",
+                  "build"
+                ]
+              }
+            }
           }
         }
       }
     },
     {
       "includes": [
-        "**/src/suspicious/noImportCycles/default/**"
+        "**/src/source/useSortedPackageJson/default/**"
       ],
-      "linter": {
+      "assist": {
         "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noImportCycles": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noQuickfixBiome/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noQuickfixBiome": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noShadow/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noShadow": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noUndeclaredEnvVars/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noUndeclaredEnvVars": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noUnknownAtRules/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noUnknownAtRules": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/noUnknownAttribute/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "noUnknownAttribute": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
-        "**/src/suspicious/useRequiredScripts/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "suspicious": {
-            "useRequiredScripts": "error"
+        "actions": {
+          "source": {
+            "useSortedPackageJson": "on"
           }
         }
       }

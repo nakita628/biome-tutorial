@@ -2,6 +2,48 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": [
@@ -421,6 +463,44 @@
     },
     {
       "includes": [
+        "**/src/a11y/useValidAriaRole/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "a11y": {
+            "useValidAriaRole": {
+              "level": "error",
+              "options": {
+                "allowInvalidRoles": [
+                  "datepicker"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/a11y/useValidAriaRole/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "a11y": {
+            "useValidAriaRole": {
+              "level": "error",
+              "options": {
+                "ignoreNonDom": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
         "**/src/a11y/useValidAriaValues/default/**"
       ],
       "linter": {
@@ -551,13 +631,18 @@
     },
     {
       "includes": [
-        "**/src/correctness/useExhaustiveDependencies/default/**"
+        "**/src/correctness/useExhaustiveDependencies/options-3/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "correctness": {
-            "useExhaustiveDependencies": "error"
+            "useExhaustiveDependencies": {
+              "level": "error",
+              "options": {
+                "reportUnnecessaryDependencies": false
+              }
+            }
           }
         }
       }
@@ -623,6 +708,26 @@
         "rules": {
           "correctness": {
             "useUniqueElementIds": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useUniqueElementIds/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useUniqueElementIds": {
+              "level": "error",
+              "options": {
+                "excludedComponents": [
+                  "FormattedMessage"
+                ]
+              }
+            }
           }
         }
       }
@@ -714,6 +819,26 @@
         "rules": {
           "nursery": {
             "noReactNativeRawText": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noReactNativeRawText/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noReactNativeRawText": {
+              "level": "error",
+              "options": {
+                "skip": [
+                  "Title"
+                ]
+              }
+            }
           }
         }
       }
@@ -837,13 +962,94 @@
     },
     {
       "includes": [
-        "**/src/nursery/useReactNativePlatformComponents/default/**"
+        "**/src/nursery/useReactFunctionComponentDefinition/options-1/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "nursery": {
-            "useReactNativePlatformComponents": "error"
+            "useReactFunctionComponentDefinition": {
+              "level": "error",
+              "options": {
+                "namedComponents": "functionDeclaration"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactFunctionComponentDefinition/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": {
+              "level": "error",
+              "options": {
+                "namedComponents": "functionExpression"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactFunctionComponentDefinition/options-3/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": {
+              "level": "error",
+              "options": {
+                "namedComponents": "arrowFunction"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactNativePlatformComponents/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactNativePlatformComponents": {
+              "level": "error",
+              "options": {
+                "androidPathPatterns": [
+                  "**/*.droid.jsx"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactNativePlatformComponents/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactNativePlatformComponents": {
+              "level": "error",
+              "options": {
+                "iosPathPatterns": [
+                  "**/*.apple.jsx"
+                ]
+              }
+            }
           }
         }
       }
@@ -954,6 +1160,27 @@
     },
     {
       "includes": [
+        "**/src/security/noBlankTarget/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "security": {
+            "noBlankTarget": {
+              "level": "error",
+              "options": {
+                "allowDomains": [
+                  "https://example.com",
+                  "example.org"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
         "**/src/security/noScriptUrl/default/**"
       ],
       "linter": {
@@ -1006,6 +1233,46 @@
     },
     {
       "includes": [
+        "**/src/style/noJsxLiterals/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noJsxLiterals": {
+              "level": "error",
+              "options": {
+                "allowedStrings": [
+                  "Hello",
+                  "&nbsp;",
+                  "·"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noJsxLiterals/options-3/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noJsxLiterals": {
+              "level": "error",
+              "options": {
+                "ignoreProps": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
         "**/src/style/useComponentExportOnlyModules/default/**"
       ],
       "linter": {
@@ -1026,6 +1293,19 @@
         "rules": {
           "style": {
             "useConsistentCurlyBraces": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useNamingConvention/default/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useNamingConvention": "error"
           }
         }
       }

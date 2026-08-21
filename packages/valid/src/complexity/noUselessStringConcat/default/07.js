@@ -1,3 +1,1 @@
-const alsoMultiline = 'foo'
-          + 'bar'
-          + `baz`
+const a = 1 - 2;

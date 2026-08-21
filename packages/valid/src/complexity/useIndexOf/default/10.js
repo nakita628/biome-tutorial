@@ -1,1 +1,1 @@
-const index = foo.findLastIndex(x => x !== 'foo');
+const index = foo.findIndex(x => (x === 'foo') && isValid());

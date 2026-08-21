@@ -1,1 +1,0 @@
-const annotated: string = "value";

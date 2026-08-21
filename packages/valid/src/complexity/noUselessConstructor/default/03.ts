@@ -1,4 +1,4 @@
-@Decorator
 class C {
-    constructor (prop: number) {}
+    // Empty constructor with parameter properties are allowed.
+    constructor (private prop: number) {}
 }

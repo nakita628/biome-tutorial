@@ -1,1 +1,1 @@
-<h1><div aria-hidden />visible content</h1>
+<h1>heading</h1>

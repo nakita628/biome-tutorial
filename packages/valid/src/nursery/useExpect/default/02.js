@@ -1,4 +1,4 @@
-it("soft assertion", async ({ page }) => {
+test("has assertion", async ({ page }) => {
     await page.goto("/");
-    await expect.soft(page.locator("h1")).toBeVisible();
+    await expect(page).toHaveTitle("Title");
 });

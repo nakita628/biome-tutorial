@@ -1,1 +1,2 @@
-<div v-bind:foo="bar" />
+<div :foo="bar" />
+<div v-bind="props" />

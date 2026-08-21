@@ -1,3 +1,5 @@
 try {
     // Do something
-} catch {}
+} catch (used) {
+    console.error(used);
+}

@@ -1,1 +1,1 @@
-<input aria-activedescendant={someID} />
+<div aria-activedescendant={someID} tabIndex={0} />

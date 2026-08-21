@@ -1,3 +1,8 @@
-const dispatch = useDispatch();
-// No need to list `dispatch` as dependency since it doesn't change
-const doAction = useCallback(() => dispatch(someAction()), []);
+import { useEffect } from "react";
+
+function component() {
+  const SECONDS_PER_DAY = 60 * 60 * 24;
+  useEffect(() => {
+    console.log(SECONDS_PER_DAY);
+  });
+}

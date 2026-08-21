@@ -1,5 +1,2 @@
-// A class property with a type annotation
-type MethodType = () => void;
-class App {
-    private method: MethodType = () => { };
-}
+// Callbacks without return types
+setTimeout(function() { console.log("Hello!"); }, 1000);

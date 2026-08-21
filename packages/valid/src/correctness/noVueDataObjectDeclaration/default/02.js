@@ -1,7 +1,5 @@
-// global registration with function syntax
-Vue.component('my-comp', {
-  /* ✓ GOOD */
-  data: function () {
-    return { count: 0 };
-  }
+// Composition API helper also deprecated
+defineComponent({
+  /* ✗ BAD */
+  data: { message: 'hi' }
 });

@@ -1,1 +1,1 @@
-export default { a: 'b' };
+import fs from 'node:fs';

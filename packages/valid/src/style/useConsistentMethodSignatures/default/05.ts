@@ -1,3 +1,3 @@
-class Foo {
-  methodFunc(arg: string): number;
+interface Prop {
+  propFunc: (arg: string) => number;
 }

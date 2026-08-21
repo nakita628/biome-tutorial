@@ -1,3 +1,4 @@
-a {
-  view-transition-name: --bbb;
+p {
+  --foo: red;
+  color: var(--foo);
 }

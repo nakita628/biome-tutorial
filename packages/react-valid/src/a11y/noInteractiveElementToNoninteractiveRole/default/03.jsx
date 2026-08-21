@@ -1,3 +1,1 @@
-<>
-    <my-button role="img" />
-</>;
+<canvas role="img" />;

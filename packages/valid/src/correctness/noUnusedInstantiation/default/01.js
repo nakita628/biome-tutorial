@@ -1,1 +1,1 @@
-const thing = new Thing();
+const person = new Person();

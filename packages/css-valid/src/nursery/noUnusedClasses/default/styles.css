@@ -1,2 +1,2 @@
-.button { color: blue; }
-.container { padding: 1rem; }
+.unused { color: red; }  /* Class "unused" is never referenced */
+.used { color: blue; }

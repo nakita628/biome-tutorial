@@ -1,1 +1,1 @@
-let { foo: foo } = bar;
+export { foo as foo };

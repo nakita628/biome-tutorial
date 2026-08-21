@@ -1,5 +1,3 @@
 function f() {
-    if (test) {
-        const g = function() {};
-    }
+    function g() {}
 }

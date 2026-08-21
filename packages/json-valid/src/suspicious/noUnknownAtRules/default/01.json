@@ -1,8 +1,0 @@
-{
-  "options": {
-    "ignore": [
-      "custom-at-rule",
-      "my-custom-rule"
-    ]
-  }
-}

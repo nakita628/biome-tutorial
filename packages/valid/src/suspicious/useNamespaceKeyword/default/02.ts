@@ -1,1 +1,1 @@
-declare module "foo" {}
+namespace Example {}

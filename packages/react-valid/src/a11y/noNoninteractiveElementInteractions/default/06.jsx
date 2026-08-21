@@ -1,2 +1,2 @@
-// Spread attributes is not supported.
-<div {...{"onClick":() => {}}}>button</div>
+// Custom component is not checked.
+<SomeComponent onClick={() => {}}>button</SomeComponent>

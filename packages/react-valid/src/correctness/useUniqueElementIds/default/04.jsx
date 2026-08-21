@@ -1,1 +1,2 @@
-<Library.FormattedMessage id="static" />
+const id = useId();
+React.createElement("div", { id });

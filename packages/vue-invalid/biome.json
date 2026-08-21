@@ -2,6 +2,48 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": [
@@ -343,6 +385,24 @@
     },
     {
       "includes": [
+        "**/src/style/useVueConsistentVBindStyle/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueConsistentVBindStyle": {
+              "level": "error",
+              "options": {
+                "style": "longhand"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
         "**/src/style/useVueConsistentVOnStyle/default/**"
       ],
       "linter": {
@@ -350,6 +410,24 @@
         "rules": {
           "style": {
             "useVueConsistentVOnStyle": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/useVueConsistentVOnStyle/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "useVueConsistentVOnStyle": {
+              "level": "error",
+              "options": {
+                "style": "longhand"
+              }
+            }
           }
         }
       }

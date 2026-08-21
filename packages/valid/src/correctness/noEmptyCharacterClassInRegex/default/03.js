@@ -1,1 +1,1 @@
-/^a\[]/.test("a[]"); // true
+/^a[xy]/.test("ay"); // true

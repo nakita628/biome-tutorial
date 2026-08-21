@@ -1,3 +1,1 @@
-class SomeClass {
-  field: 1 | 2 = 1;
-}
+let variable: 1 | 2 = 1;

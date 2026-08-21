@@ -1,1 +1,1 @@
-foo != null
+foo == null

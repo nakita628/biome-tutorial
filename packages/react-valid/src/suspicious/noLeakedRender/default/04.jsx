@@ -1,4 +1,4 @@
 const Component = () => {
-  const condition = false;
-  return <div>{condition ? <Content /> : <Fallback />}</div>;
+  const count = 0;
+  return <div>{count > 0 && <span>Count: {count}</span>}</div>;
 }

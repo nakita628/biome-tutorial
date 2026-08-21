@@ -1,1 +1,1 @@
-const notEmpty: {} = {prop: 12};
+const bool = true as Boolean;

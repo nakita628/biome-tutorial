@@ -1,1 +1,1 @@
-<input type="image" src="image.png" aria-labelledby="someId" />
+<input type="image" src="image.png" alt="alt text" />

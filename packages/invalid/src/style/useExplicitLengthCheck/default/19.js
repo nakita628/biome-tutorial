@@ -1,1 +1,1 @@
-while (foo.length) {}
+const biome = foo.length ? 1 : 2

@@ -1,7 +1,3 @@
-if (condition) {
-    if (anotherCondition) {
-        // ...
-    } else {
-        // ...
-    }
+if (condition && anotherCondition) {
+    // ...
 }

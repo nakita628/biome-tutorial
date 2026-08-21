@@ -1,1 +1,1 @@
-<div @click.stop></div>
+<Foo v-on:click="foo" />

@@ -1,1 +1,1 @@
-<Component>child</Component>
+<div />

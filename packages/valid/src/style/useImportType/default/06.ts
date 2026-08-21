@@ -1,2 +1,3 @@
-import { A } from "./mod.ts";
-export type { A };
+import { type A, B } from "./mod.js";
+let c: A;
+let d = new B();

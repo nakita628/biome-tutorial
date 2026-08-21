@@ -1,1 +1,1 @@
-<a href='http://external.link' rel='noreferrer' target='_blank'>child</a>
+<a href='http://external.link' rel='noopener' target='_blank'>child</a>

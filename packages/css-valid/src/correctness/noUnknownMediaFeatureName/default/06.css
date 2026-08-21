@@ -1,2 +1,1 @@
-@custom-media --mobile (max-width: 768px);
-@media screen and (--mobile) {}
+@media only screen and (min-width: 320px) and (max-width: 480px) and (resolution: 150dpi) {}

@@ -1,2 +1,4 @@
-// A function with a type assertion using `as`
-var asTyped = (() => '') as () => string;
+// A return value of type number
+var fn = function (): number {
+  return 1;
+}

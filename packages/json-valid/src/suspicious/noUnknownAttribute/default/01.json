@@ -1,7 +1,0 @@
-{
-  "noUnknownAttribute": {
-    "options": {
-      "ignore": ["custom-attribute", "non-standard-prop"]
-    }
-  }
-}

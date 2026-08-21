@@ -1,3 +1,2 @@
-namespace Baz {}
-namespace Baz {}
-enum Baz {}
+interface Foo {}
+class Bar implements Foo {}

@@ -1,1 +1,1 @@
-const alsoNotAnObj: Object = "foo";
+let invalidTuple: [string, Number] = ["foo", 12];

@@ -1,1 +1,1 @@
-<canvas role="img" />;
+<input role="button" />;

@@ -1,8 +1,0 @@
-{
-  "options": {
-    "devDependencies": false,
-    "peerDependencies": false,
-    "optionalDependencies": false,
-    "bundleDependencies": false
-  }
-}

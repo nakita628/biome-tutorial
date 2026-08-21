@@ -1,1 +1,1 @@
-if (!!val) { f(); } else { g(); }
+cond ? 1 : 0

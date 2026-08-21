@@ -1,1 +1,1 @@
-<Foo.bar />
+<div>child</div>

@@ -1,2 +1,1 @@
-const multiline = 'foo' + // formatting
-          'bar'
+const a = 1 * '2';

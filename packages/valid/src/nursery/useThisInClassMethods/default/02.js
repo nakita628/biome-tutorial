@@ -1,3 +1,5 @@
 class A {
-    static foo() {}
+    foo() {
+        this.value = "Hello";
+    }
 }

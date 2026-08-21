@@ -1,1 +1,1 @@
-let tuple: [boolean, string] = [false, "foo"];
+type NonNullableMyType = MyType & {};

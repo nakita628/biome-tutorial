@@ -1,5 +1,0 @@
-{
-  "options": {
-    "devDependencies": ["**/tests/*.test.js", "**/tests/*.spec.js"]
-  }
-}

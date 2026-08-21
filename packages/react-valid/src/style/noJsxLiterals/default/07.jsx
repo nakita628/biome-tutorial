@@ -1,5 +1,1 @@
-<>
-  <div>Hello</div>
-  <div>&nbsp;</div>
-  <div>·</div>
-</>
+<div>{`Hello ${name}`}</div>

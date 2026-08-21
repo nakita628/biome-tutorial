@@ -1,0 +1,7 @@
+namespace mathExtra {
+    /*...*/
+}
+
+namespace MathExtra {
+    /*...*/
+}

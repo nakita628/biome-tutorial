@@ -1,1 +1,1 @@
-do {} while (foo.length);
+while (foo.length) {}

@@ -1,1 +1,1 @@
-const index = foo.findLastIndex((x, index) => x === index);
+const index = foo.findIndex(x => y === 'foo');

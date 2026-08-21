@@ -1,4 +1,5 @@
-enum State {
-    Open = "Open",
-    Close = "Close",
+enum Order {
+    Less = -1,
+    Equal = 0,
+    Greater = 1,
 }

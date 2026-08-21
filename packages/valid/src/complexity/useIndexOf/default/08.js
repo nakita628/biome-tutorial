@@ -1,4 +1,1 @@
-const index = foo.findIndex(function(x) {
-    const bar = getBar();
-    return x === bar;
-});
+const index = foo.findIndex(x => x !== 'foo');

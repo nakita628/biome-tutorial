@@ -1,7 +1,0 @@
-{
-  "options": {
-    "hooks": [
-      { "name": "useDispatch", "stableResult": true }
-    ]
-  }
-}

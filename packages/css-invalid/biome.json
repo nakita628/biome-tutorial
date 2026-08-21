@@ -2,6 +2,48 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": [
@@ -200,13 +242,36 @@
     },
     {
       "includes": [
-        "**/src/nursery/noExcessiveSelectorClasses/default/**"
+        "**/src/nursery/noExcessiveSelectorClasses/options-1/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "nursery": {
-            "noExcessiveSelectorClasses": "error"
+            "noExcessiveSelectorClasses": {
+              "level": "error",
+              "options": {
+                "maxClasses": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/noExcessiveSelectorClasses/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "noExcessiveSelectorClasses": {
+              "level": "error",
+              "options": {
+                "maxClasses": 2
+              }
+            }
           }
         }
       }
@@ -226,19 +291,6 @@
     },
     {
       "includes": [
-        "**/src/nursery/noUnusedClasses/default/**"
-      ],
-      "linter": {
-        "enabled": true,
-        "rules": {
-          "nursery": {
-            "noUnusedClasses": "error"
-          }
-        }
-      }
-    },
-    {
-      "includes": [
         "**/src/nursery/useBaseline/default/**"
       ],
       "linter": {
@@ -246,6 +298,24 @@
         "rules": {
           "nursery": {
             "useBaseline": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useBaseline/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useBaseline": {
+              "level": "error",
+              "options": {
+                "available": "newly"
+              }
+            }
           }
         }
       }
@@ -428,6 +498,19 @@
         "rules": {
           "suspicious": {
             "noUnknownAtRules": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/source/useSortedProperties/default/**"
+      ],
+      "assist": {
+        "enabled": true,
+        "actions": {
+          "source": {
+            "useSortedProperties": "on"
           }
         }
       }

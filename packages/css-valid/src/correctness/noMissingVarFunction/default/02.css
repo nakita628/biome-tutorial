@@ -1,4 +1,0 @@
-p {
-  --foo: red;
-  color: var(--foo);
-}

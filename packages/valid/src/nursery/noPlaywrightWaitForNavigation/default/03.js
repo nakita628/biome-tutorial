@@ -1,1 +1,1 @@
-await page.goto('/home');
+await page.waitForURL('/home');

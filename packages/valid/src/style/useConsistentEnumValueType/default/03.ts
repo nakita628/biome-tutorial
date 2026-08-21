@@ -1,5 +1,5 @@
 enum Status {
-  Unknown = 'unknown',
-  Closed = 'closed',
-  Open = 'open',
+  Unknown,
+  Closed,
+  Open,
 }

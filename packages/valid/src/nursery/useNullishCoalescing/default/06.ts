@@ -1,2 +1,2 @@
-declare const x: string | null;
-const value = x !== null ? x : 'default';
+declare let y: string | null;
+y ??= 'default';

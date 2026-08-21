@@ -1,8 +1,0 @@
-{
-  "options": {
-    "hooks": [
-      { "name": "useLocation", "closureIndex": 0, "dependenciesIndex": 1 },
-      { "name": "useQuery", "closureIndex": 2, "dependenciesIndex": 0 }
-    ]
-  }
-}

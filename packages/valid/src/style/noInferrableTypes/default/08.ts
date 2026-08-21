@@ -1,1 +1,3 @@
-function f(param: 1 | 2 = 1): void {}
+class SomeClass {
+  readonly field: number = 1;
+}

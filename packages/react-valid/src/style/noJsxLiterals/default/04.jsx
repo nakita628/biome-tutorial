@@ -1,1 +1,1 @@
-<div>{`Hello ${name}`}</div>
+<div>{'Hello World'}</div>

@@ -1,4 +1,4 @@
 const Component = () => {
-  const isReady = true;
-  return <div>{isReady && <Content />}</div>;
+  const items = [];
+  return <div>{!!items.length && <List items={items} />}</div>;
 }

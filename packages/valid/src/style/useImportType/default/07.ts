@@ -1,2 +1,4 @@
-import { type A, type B } from "./mod.ts";
-export type { A, B };
+import { A } from "./mod.js";
+
+import { B } from "./mod.js" with {};
+export type { B };

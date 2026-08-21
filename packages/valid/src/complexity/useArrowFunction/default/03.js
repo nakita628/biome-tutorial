@@ -1,3 +1,3 @@
-const q = function () {
-    return arguments[0];
+const f = function() {
+    return this.prop;
 }

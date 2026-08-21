@@ -1,4 +1,1 @@
-function foo() {
-    const alert = myCustomLib.customAlert;
-    alert();
-}
+customAlert("Something happened!");

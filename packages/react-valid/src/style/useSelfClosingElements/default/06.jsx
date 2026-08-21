@@ -1,1 +1,1 @@
-<Foo.bar>child</Foo.bar>
+<Component />

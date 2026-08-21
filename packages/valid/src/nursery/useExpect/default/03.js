@@ -1,3 +1,4 @@
-it("returns bar when passed foo", () => {
-  assert(myFunc("foo") === "bar", "didn't return bar");
+it("soft assertion", async ({ page }) => {
+    await page.goto("/");
+    await expect.soft(page.locator("h1")).toBeVisible();
 });

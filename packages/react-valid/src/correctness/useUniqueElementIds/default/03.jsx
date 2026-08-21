@@ -1,1 +1,2 @@
-<FormattedMessage id="static" />
+const id = useId();
+<div id={id}>bar</div>;

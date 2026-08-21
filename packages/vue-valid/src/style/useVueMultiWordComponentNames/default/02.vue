@@ -1,5 +1,5 @@
 <script>
 export default {
-  name: "Foo"
+  name: "MyComponent"
 };
 </script>

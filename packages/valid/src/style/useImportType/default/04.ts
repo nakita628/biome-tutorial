@@ -1,4 +1,2 @@
-import { A } from "./mod.js";
-
-import { B } from "./mod.js" with {};
-export type { B };
+import type { A } from "./mod.js";
+let a: A;

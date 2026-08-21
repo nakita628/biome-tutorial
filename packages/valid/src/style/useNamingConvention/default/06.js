@@ -1,0 +1,3 @@
+const alice = {
+    fullName: "Alice",
+}

@@ -1,7 +1,0 @@
-{
-  "options": {
-    "ignore": [
-      "custom-pseudo-element"
-    ]
-  }
-}

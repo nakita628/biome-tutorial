@@ -1,4 +1,4 @@
-export function newUtility() {}
-
-// @deprecated (this is not a JSDoc comment)
+/**
+ * @deprecated
+ */
 export function oldUtility() {}

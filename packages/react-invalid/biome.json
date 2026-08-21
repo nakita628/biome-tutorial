@@ -2,6 +2,48 @@
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
   "root": false,
   "extends": "//",
+  "linter": {
+    "rules": {
+      "preset": "none",
+      "complexity": {
+        "useArrayFind": "off"
+      },
+      "correctness": {
+        "noPrivateImports": "off",
+        "noUndeclaredDependencies": "off",
+        "noUnresolvedImports": "off",
+        "useImportExtensions": "off",
+        "useJsonImportAttributes": "off"
+      },
+      "nursery": {
+        "noBaseToString": "off",
+        "noFloatingPromises": "off",
+        "noMisleadingReturnType": "off",
+        "noMisusedPromises": "off",
+        "noUndeclaredClasses": "off",
+        "noUnsafePlusOperands": "off",
+        "noUntrustedLicenses": "off",
+        "noUnusedClasses": "off",
+        "noUselessTypeConversion": "off",
+        "useAwaitThenable": "off",
+        "useDisposables": "off",
+        "useExhaustiveSwitchCases": "off",
+        "useIncludes": "off",
+        "useNullishCoalescing": "off",
+        "useRegexpExec": "off",
+        "useStringStartsEndsWith": "off"
+      },
+      "style": {
+        "useConsistentEnumValueType": "off"
+      },
+      "suspicious": {
+        "noDeprecatedImports": "off",
+        "noImportCycles": "off",
+        "noUnnecessaryConditions": "off",
+        "useArraySortCompare": "off"
+      }
+    }
+  },
   "overrides": [
     {
       "includes": [
@@ -25,6 +67,26 @@
         "rules": {
           "a11y": {
             "noAmbiguousAnchorText": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/a11y/noAmbiguousAnchorText/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "a11y": {
+            "noAmbiguousAnchorText": {
+              "level": "error",
+              "options": {
+                "words": [
+                  "click this"
+                ]
+              }
+            }
           }
         }
       }
@@ -577,13 +639,21 @@
     },
     {
       "includes": [
-        "**/src/correctness/noRestrictedElements/default/**"
+        "**/src/correctness/noRestrictedElements/options-1/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "correctness": {
-            "noRestrictedElements": "error"
+            "noRestrictedElements": {
+              "level": "error",
+              "options": {
+                "elements": {
+                  "input": "input is not allowed, use TextField component instead",
+                  "CustomComponent": "deprecated"
+                }
+              }
+            }
           }
         }
       }
@@ -629,6 +699,24 @@
     },
     {
       "includes": [
+        "**/src/correctness/useExhaustiveDependencies/options-4/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useExhaustiveDependencies": {
+              "level": "error",
+              "options": {
+                "reportMissingDependenciesArray": true
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
         "**/src/correctness/useImageSize/default/**"
       ],
       "linter": {
@@ -662,6 +750,24 @@
         "rules": {
           "correctness": {
             "useJsxKeyInIterable": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/correctness/useJsxKeyInIterable/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "correctness": {
+            "useJsxKeyInIterable": {
+              "level": "error",
+              "options": {
+                "checkShorthandFragments": true
+              }
+            }
           }
         }
       }
@@ -811,13 +917,23 @@
     },
     {
       "includes": [
-        "**/src/nursery/noUnusedClasses/default/**"
+        "**/src/nursery/noTailwindArbitraryValue/options-1/**"
       ],
       "linter": {
         "enabled": true,
         "rules": {
           "nursery": {
-            "noUnusedClasses": "error"
+            "noTailwindArbitraryValue": {
+              "level": "error",
+              "options": {
+                "attributes": [
+                  "classList"
+                ],
+                "functions": [
+                  "clsx"
+                ]
+              }
+            }
           }
         }
       }
@@ -896,6 +1012,100 @@
         "rules": {
           "nursery": {
             "useReactFunctionComponentDefinition": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactFunctionComponentDefinition/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": {
+              "level": "error",
+              "options": {
+                "namedComponents": "functionDeclaration"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactFunctionComponentDefinition/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": {
+              "level": "error",
+              "options": {
+                "namedComponents": "functionExpression"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactFunctionComponentDefinition/options-3/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactFunctionComponentDefinition": {
+              "level": "error",
+              "options": {
+                "namedComponents": "arrowFunction"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactNativePlatformComponents/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactNativePlatformComponents": {
+              "level": "error",
+              "options": {
+                "androidPathPatterns": [
+                  "**/*.droid.jsx"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/nursery/useReactNativePlatformComponents/options-2/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "nursery": {
+            "useReactNativePlatformComponents": {
+              "level": "error",
+              "options": {
+                "iosPathPatterns": [
+                  "**/*.apple.jsx"
+                ]
+              }
+            }
           }
         }
       }
@@ -1019,6 +1229,44 @@
     },
     {
       "includes": [
+        "**/src/security/noBlankTarget/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "security": {
+            "noBlankTarget": {
+              "level": "error",
+              "options": {
+                "allowNoReferrer": false
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/security/noBlankTarget/options-3/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "security": {
+            "noBlankTarget": {
+              "level": "error",
+              "options": {
+                "allowDomains": [
+                  "https://example.com"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
         "**/src/security/noDangerouslySetInnerHtml/default/**"
       ],
       "linter": {
@@ -1091,6 +1339,24 @@
         "rules": {
           "style": {
             "noJsxLiterals": "error"
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/style/noJsxLiterals/options-1/**"
+      ],
+      "linter": {
+        "enabled": true,
+        "rules": {
+          "style": {
+            "noJsxLiterals": {
+              "level": "error",
+              "options": {
+                "noStrings": true
+              }
+            }
           }
         }
       }
@@ -1331,13 +1597,36 @@
     },
     {
       "includes": [
-        "**/src/source/useSortedAttributes/options/**"
+        "**/src/source/useSortedAttributes/options-1/**"
       ],
       "assist": {
         "enabled": true,
         "actions": {
           "source": {
-            "useSortedAttributes": "on"
+            "useSortedAttributes": {
+              "level": "on",
+              "options": {
+                "sortOrder": "natural"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "**/src/source/useSortedAttributes/options-2/**"
+      ],
+      "assist": {
+        "enabled": true,
+        "actions": {
+          "source": {
+            "useSortedAttributes": {
+              "level": "on",
+              "options": {
+                "sortOrder": "lexicographic"
+              }
+            }
           }
         }
       }

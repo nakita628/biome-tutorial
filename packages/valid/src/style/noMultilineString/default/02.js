@@ -1,2 +1,1 @@
-const bar = `Line 1
-Line 2`;
+const foo = "Line 1\nLine 2";

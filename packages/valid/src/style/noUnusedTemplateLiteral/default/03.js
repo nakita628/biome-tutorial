@@ -1,1 +1,2 @@
-const foo = `'bar'`
+const foo = `bar
+has newline`;

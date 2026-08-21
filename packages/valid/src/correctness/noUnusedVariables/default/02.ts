@@ -1,5 +1,6 @@
-const MyComponent = () => {};
-namespace MyComponent {
-    export type Props = { id: string };
+function used_overloaded(): number;
+function used_overloaded(s: string): string;
+function used_overloaded(s?: string) {
+    return s;
 }
-export default MyComponent;
+used_overloaded();

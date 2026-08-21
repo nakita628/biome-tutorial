@@ -1,3 +1,1 @@
-<span>
-  {'Please enter your name'}
-</span>
+<>{'Welcome to our site'}</>

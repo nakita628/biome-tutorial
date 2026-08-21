@@ -1,0 +1,15 @@
+query {
+  id
+  ...bFragment
+  firstName: name
+  ... on Contact {
+    phoneNumber
+    email
+  }
+  age
+  ... on Address {
+    street
+    city
+  }
+  ...aFragment
+}

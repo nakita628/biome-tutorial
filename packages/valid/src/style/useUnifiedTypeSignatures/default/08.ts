@@ -1,2 +1,3 @@
-function bake(numApples: number): void;
-function bake(cakeType: string): void;
+interface I {
+    a(x?: number): void;
+}

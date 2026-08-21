@@ -1,2 +1,2 @@
-// Custom component is not checked.
-<SomeComponent onClick={() => {}}>button</SomeComponent>
+// Hidden from screen reader.
+<div onClick={() => {}} aria-hidden />

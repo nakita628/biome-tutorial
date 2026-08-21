@@ -1,5 +1,5 @@
 for (key in foo) {
-  if ({}.hasOwnProperty.call(foo, key)) {
+  if (Object.prototype.hasOwnProperty.call(foo, key)) {
     doSomething(key);
   }
 }

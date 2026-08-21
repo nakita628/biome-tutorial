@@ -1,3 +1,6 @@
-// A variable declarator with a type annotation.
-type FuncType = () => string;
-var arrowFn: FuncType = () => 'test';
+class Test {
+  // No return value should be expected (void)
+  method(): void {
+    return;
+  }
+}

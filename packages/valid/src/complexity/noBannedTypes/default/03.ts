@@ -1,3 +1,2 @@
-function betterFunction(cb: (n: number) => string) {
-  return cb(12);
-}
+// equivalent to `{}`
+type AnythingNotNullish = NonNullable<unknown>;

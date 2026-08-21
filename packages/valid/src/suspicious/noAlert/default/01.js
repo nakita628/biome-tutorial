@@ -1,1 +1,0 @@
-customAlert("Something happened!");

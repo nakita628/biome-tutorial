@@ -1,4 +1,8 @@
-function Foo() {
-  let stateVar = 1;
-  useQuery([stateVar], "smthng", () => {console.log(stateVar)});
+import { useEffect } from "react";
+
+function component() {
+  let a = 1;
+  useEffect(() => {
+    console.log(a);
+  }, [a]);
 }

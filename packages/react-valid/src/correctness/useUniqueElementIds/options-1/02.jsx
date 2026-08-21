@@ -1,0 +1,1 @@
+<Library.FormattedMessage id="static" />

@@ -1,4 +1,1 @@
-const enum Foo {
-    BAR = 'bar',
-    BAZ = 'baz',
-}
+type Foo = 'bar' | 'baz'

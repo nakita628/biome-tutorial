@@ -1,3 +1,3 @@
-<svg role="img" aria-label="">
-    <span id="">Pass</span>
+<svg role="img" aria-labelledby="title">
+    <span id="title">Pass</span>
 </svg>

@@ -1,3 +1,1 @@
-function badFunction(cb: Function) {
-  cb(12);
-}
+let foo: String = "bar";

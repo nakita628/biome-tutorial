@@ -1,0 +1,1 @@
+foo.__defineGetter__

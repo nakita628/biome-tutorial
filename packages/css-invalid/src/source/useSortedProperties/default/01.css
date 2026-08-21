@@ -1,0 +1,9 @@
+p {
+  transition: opacity 1s ease;
+  border: 1px solid black;
+  pointer-events: none;
+  color: black;
+  margin: 8px;
+  display: block;
+  --custom: 100;
+}

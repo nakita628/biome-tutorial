@@ -1,1 +1,3 @@
-[].forEach(() => void null); // Void return value, which doesn't trigger the rule
+[].forEach(() => {
+    // No return value, which is correct
+});

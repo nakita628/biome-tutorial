@@ -1,4 +1,2 @@
-// Functions with allowed names don't need return types
-function myFunction() {
-  return 42;
-}
+// A function with a type assertion using `as`
+var asTyped = (() => '') as () => string;

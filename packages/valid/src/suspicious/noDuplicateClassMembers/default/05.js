@@ -1,4 +1,4 @@
 class Foo {
-  static bar() { }
   bar() { }
+  qux() { }
 }

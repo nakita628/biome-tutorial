@@ -1,1 +1,1 @@
-<div onClick={() => {}} onKeyPress={handleKeyPress} />
+<div onClick={() => {}} onKeyUp={handleKeyUp} />

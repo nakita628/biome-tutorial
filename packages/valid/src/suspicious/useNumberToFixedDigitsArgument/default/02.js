@@ -1,1 +1,1 @@
-const string = foo.toFixed(2);
+const string = foo.toFixed(0);

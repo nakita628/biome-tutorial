@@ -1,3 +1,3 @@
-type OK = {
-  flubber(arg: number): number;
+interface Example {
+  notAFunc: number;
 }

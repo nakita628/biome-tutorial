@@ -1,4 +1,3 @@
-let i = 0;
-for (; i < array.length; i++) {
-   console.log(array[i]);
+for (let i = 0, j = 0; i < array.length; i++) {
+   console.log(i, array[i]);
  }

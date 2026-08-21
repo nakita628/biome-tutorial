@@ -1,1 +1,4 @@
-<svg aria-hidden><rect /></svg>
+<svg>
+    <title>Pass</title>
+    <circle />
+</svg>

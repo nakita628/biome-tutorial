@@ -1,3 +1,3 @@
-array.forEach((value, i) => {
-  console.log(i, value);
-});
+for (let i = 0; i < array.length; i += 1) {
+  console.log(i, array[i]);
+}

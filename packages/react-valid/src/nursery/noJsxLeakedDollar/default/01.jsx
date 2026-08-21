@@ -1,3 +1,3 @@
 function MyComponent({ user }) {
-  return <div>Hello {user.name}</div>;
+  return `Hello ${user.name}`;
 }

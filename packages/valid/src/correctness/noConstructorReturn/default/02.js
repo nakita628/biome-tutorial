@@ -1,5 +1,3 @@
-class B {
-    constructor(x) {
-        return;
-    }
+class A {
+    constructor() {}
 }

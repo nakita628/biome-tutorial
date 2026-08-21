@@ -1,3 +1,2 @@
-function f(FOO = "FOO") {
-    return FOO;
-}
+export const FOO = "FOO";
+console.log(FOO);

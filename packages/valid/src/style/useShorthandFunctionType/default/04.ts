@@ -1,6 +1,3 @@
-interface Foo {
-  bar: string;
-}
-interface Bar extends Foo {
-  (): void;
+function foo(example: () => number): number {
+  return bar();
 }

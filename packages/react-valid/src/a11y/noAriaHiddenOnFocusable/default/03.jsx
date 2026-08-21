@@ -1,1 +1,1 @@
-<div aria-hidden="true"><a href="#"></a></div>
+<button aria-hidden="true" tabIndex="-1" />

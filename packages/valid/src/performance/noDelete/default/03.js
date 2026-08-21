@@ -1,2 +1,2 @@
-let x = 5;
-delete f(); // uncovered by this rule.
+const foo = new Set([1,2,3]);
+foo.delete(1);
