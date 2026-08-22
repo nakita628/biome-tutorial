@@ -59,13 +59,13 @@
       "package": "@biome-tutorial/json-invalid",
       "dir": "packages/json-invalid",
       "files": 23,
-      "rules": 10
+      "rules": 11
     },
     {
       "package": "@biome-tutorial/json-valid",
       "dir": "packages/json-valid",
       "files": 26,
-      "rules": 11
+      "rules": 12
     },
     {
       "package": "@biome-tutorial/react-invalid",

@@ -107,7 +107,6 @@ export const EXPECTED_FAILURES = {}
  *
  *   pkg     … LANGS の pkg 名 (配置先パッケージ)
  *   variant … default か options-N
- *   ownConfig … ケース内の biome.json が自分でルールを有効化するため override を作らない
  */
 export const MANUAL_CASES = [
   {
@@ -188,11 +187,16 @@ export const MANUAL_CASES = [
     ],
   },
   {
+    // このルールの対象は「Biome の設定ファイルそのもの」なので、ケースの中身が biome.json になる。
+    // ケース内の biome.json はネストした設定として自分自身にも適用されるが、
+    // 「その設定ファイルをどの設定で lint するか」は biome check に渡した範囲によって変わる
+    // (パッケージ全体を検査すると、ケース内の設定ではなくパッケージの設定が使われることがある)。
+    // どちらで lint されても診断が出るように、ケース内の biome.json と
+    // パッケージの overrides の両方でこのルールを有効にしておく。
     rule: 'useBiomeIgnoreFolder',
     group: 'suspicious',
     pkg: 'json',
     variant: 'default',
-    ownConfig: true,
     cases: [
       {
         expect: 'invalid',

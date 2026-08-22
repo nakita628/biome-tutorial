@@ -8,8 +8,8 @@
  * ■ 何を有効にしているか
  *     - 既定ではルールを 1 つも有効にしない      … linter.rules.preset: "none"
  *     - ディレクトリごとに 1 ルールだけ有効にする … overrides[]
- *     - 有効化しているルール: 8 種類 / override: 10 件
- *     - 検証しているケース  : 17 件 (22 ファイル)
+ *     - 有効化しているルール: 9 種類 / override: 11 件
+ *     - 検証しているケース  : 18 件 (23 ファイル)
  *
  * ■ 何を縛っているか
  *     overrides[].includes に書いたディレクトリだけが、そのルールの検査対象になります。
@@ -19,7 +19,7 @@
  *     correctness    2 件
  *     nursery        4 件
  *     source         1 件
- *     suspicious     3 件
+ *     suspicious     4 件
  */
 {
   "$schema": "../../node_modules/@biomejs/biome/configuration_schema.json",
@@ -179,7 +179,7 @@
     },
 
     // ══════════════════════════════════════════════════════════════════════════
-    // suspicious — override 3 件
+    // suspicious — override 4 件
     // ══════════════════════════════════════════════════════════════════════════
     // noDuplicateDependencies — Prevent the listing of duplicate dependencies.
     //   縛る対象 : src/suspicious/noDuplicateDependencies/default/ 配下 (1 ケース / 1 ファイル)
@@ -201,6 +201,17 @@
     {
       "includes": ["**/src/suspicious/noQuickfixBiome/default/**"],
       "linter": { "enabled": true, "rules": { "suspicious": { "noQuickfixBiome": "error" } } }
+    },
+
+    // useBiomeIgnoreFolder — Promotes the correct usage for ignoring folders in the configuration file.
+    //   縛る対象 : src/suspicious/useBiomeIgnoreFolder/default/ 配下 (1 ケース / 1 ファイル)
+    //   有効化   : lint/suspicious/useBiomeIgnoreFolder を "error" にする
+    //   ルール情報: 既定の重大度 warn ・ recommended ・ 自動修正 safe
+    //   補足     : 公式ドキュメントにコード例が無いため tools/config.mjs で手書きしたケース
+    //   ドキュメント: https://biomejs.dev/linter/rules/use-biome-ignore-folder/
+    {
+      "includes": ["**/src/suspicious/useBiomeIgnoreFolder/default/**"],
+      "linter": { "enabled": true, "rules": { "suspicious": { "useBiomeIgnoreFolder": "error" } } }
     },
 
     // useRequiredScripts — Enforce the presence of required scripts in package.json.

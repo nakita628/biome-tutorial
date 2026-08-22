@@ -232,38 +232,36 @@ for (const manual of [...MANUAL_CASES, ...EXTRA_CASES]) {
       target.files.set(full, code)
       files.push(full)
     }
-    if (!manual.ownConfig) {
-      if (!target.overrides.has(baseDir)) {
-        target.overrides.set(baseDir, {
-          config: buildOverride({
-            group: manual.group,
-            name: manual.rule,
-            meta: { kind: entry.kind },
-            options: manual.options ?? null,
-            dir: baseDir,
-          }),
-          info: {
-            group: manual.group,
-            rule: manual.rule,
-            category: entry.category,
-            kind: entry.kind,
-            description: entry.description,
-            severity: entry.severity,
-            recommended: entry.recommended,
-            fix: entry.fix,
-            domains: entry.domains,
-            options: manual.options ?? null,
-            dir: baseDir,
-            manual: true,
-            cases: 0,
-            files: 0,
-          },
-        })
-      }
-      const info = target.overrides.get(baseDir).info
-      info.cases++
-      info.files += files.length
+    if (!target.overrides.has(baseDir)) {
+      target.overrides.set(baseDir, {
+        config: buildOverride({
+          group: manual.group,
+          name: manual.rule,
+          meta: { kind: entry.kind },
+          options: manual.options ?? null,
+          dir: baseDir,
+        }),
+        info: {
+          group: manual.group,
+          rule: manual.rule,
+          category: entry.category,
+          kind: entry.kind,
+          description: entry.description,
+          severity: entry.severity,
+          recommended: entry.recommended,
+          fix: entry.fix,
+          domains: entry.domains,
+          options: manual.options ?? null,
+          dir: baseDir,
+          manual: true,
+          cases: 0,
+          files: 0,
+        },
+      })
     }
+    const info = target.overrides.get(baseDir).info
+    info.cases++
+    info.files += files.length
     stats.cases++
     stats.files += files.length
     entry.cases.push({
